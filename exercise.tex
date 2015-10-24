@@ -1,121 +1,360 @@
 \documentclass{exercise}
 
-\group{Universität zu Lübeck}
-\exercise{\texttt{exercise}-Klasse}{Anleitung}
-\students{Malte Schmitz \\
-          \href{http://malte.schmitz-sh.de}{malte.schmitz-sh.de}}
+\setgroup{Universität zu Lübeck}
+\settitle[Anleitung]{\texttt{exercise}-Klasse}
+\addstudent{Malte Schmitz}
+\addstudent{\href{http://malte.schmitz-sh.de}{malte.schmitz-sh.de}}
+
+\lstset{numbers=none,
+        language=[latex]tex,
+        extendedchars=false,
+        morecomment=[s][\color{green!50!black}]{<}{>},
+        morekeywords={task,setgroup, settitle, addstudent, qed,
+        subsection,settitle,taskcommand,setdefaultitem,setdefaultenum,
+        setdefaultleftmargin,qedsymbol,enquote,glqq,glq,grq,grqq,lstset,
+        color,lstinputlisting,lstinline,showrowcolors,hiderowcolors,
+        headerrow,tick,R,N,Z,Q,set,blitz,inhead,paragraph,dx,dt,
+        trans,zz,DeclareMathOperator,operatorname,op}}
+        
+\usepackage{pgffor}
 
 \begin{document}
-  \task[Wohin mit \texttt{exercise.cls}?][Installation]
-    Zur Installation der \texttt{exercise}-Klasse muss die Datei \enquote{exercise.cls} von \LaTeX{} gefunden werden. Dazu muss
+  \task[Wohin mit \enquote{exercise.cls}?][Installation]
+    Zur Installation der \texttt{exercise}-Klasse muss die Datei
+    \enquote{exercise.cls} von \LaTeX{} gefunden werden. Dazu muss
     \begin{enumerate}[1)]
       \item Die Datei \enquote{exercise.cls} am besten im Verzeichnis
         \enquote{tex/latex/exercise}
-        liegen. Unter MikTeX und Windows also zum Beispiel im Verzeichnis
+        liegen. Unter MikTeX und Windows also zum Beispiel in folgendem Verzeichnis.
         
-        \qquad\enquote{C:\textbackslash{}Programme\textbackslash{}MikTeX\textbackslash{}tex\textbackslash{}latex\textbackslash{}exercise}.
+        \texttt{C:\textbackslash{}Programme\textbackslash{}MikTeX\textbackslash{}tex\textbackslash{}latex\textbackslash{}exercise}
       
       \item \LaTeX{} angewiesen werden, seine Dateinamen-Datenbank zu aktualisieren.
         Entweder mit der Anweisung \texttt{mktexlsr} oder unter MikTeX und Windows
         zum Beispiel über \textsf{Start - Programme - MikTeX Settings} auf der
         Registerkarte \textsf{Generals} über den Button \textsf{Refresh FNDB}.
+        
+      Ab MikTeX 2.9 durchsucht \texttt{mktexlsr} ohne Parameter nicht mehr das
+      Installationsverzeichnis (common root directory). Stattdessen wird
+      das benutzerspezifische Verzeichnis (user root directory) durchsucht. Also
+      entweder \texttt{mktexlsr} mit dem Parameter \texttt{--admin} starten,
+      oder die Datei in ein benutzerspezifisches Verzeichnis kopieren. Diese
+      werden angezeigt, wenn \texttt{mktexlsr} ausgeführt wird. Üblicherweise
+      bietet sich zum Beispiel folgendes Verzeichnis an:
+      
+      \texttt{C:\textbackslash{}Dokumente und Einstellungen\textbackslash{}<Benutzername>\textbackslash{}Anwendungsdaten\textbackslash{}\\
+      MikTeX\textbackslash{}2.9\textbackslash{}tex\textbackslash{}latex\textbackslash{}exercise}
+       
     \end{enumerate}
     
-    Wer auf die \enquote{richtige Installation} keine Lust hat, kann die Klasse auch verwenden, indem sich die Datei \texttt{exercise.cls} im gleichen Verzeichnis wie das eigene \LaTeX{}-Dokument befindet.
+    Wer auf die \enquote{richtige Installation} keine Lust hat, kann die Klasse
+    auch verwenden, indem sich die Datei \enquote{exercise.cls} im gleichen
+    Verzeichnis wie das eigene \LaTeX{}-Dokument befindet.
     
   \task[Was der Autor alles angenommen hat][Vorraussetzungen]
-    Die Klasse setzt automatisch den Eingabe-Zeichensatz auf UTF-8, die Sprache auf Deutsch (neue deutsche Rechtschreibung) und den Font auf \texttt{lmodern}. Das hat den Vorteil, dass Du Dich um nichts mehr kümmern musst, und den Nachteil, dass Du das so annehmen musst. Insbesondere muss Dein Quellcode als UTF-8 gespeichert werden, oder keine Sonderzeichen enthalten.
+    Die Klasse setzt automatisch den Eingabe-Zeichensatz auf UTF-8 und den Font
+    auf \texttt{lmodern}. Das hat den Vorteil, dass Du Dich um nichts mehr
+    kümmern musst, und den Nachteil, dass Du das so annehmen musst. Insbesondere
+    muss Dein Quellcode als UTF-8 gespeichert werden, oder keine
+    Sonderzeichen enthalten.
     
-    Die Klasse verwendet KOMA-Script \cite{koma} und setzt automatisch die Papiergröße auf A4, die Schriftgröße auf 10pt und die Absatzsteuerung auf einen halben Absatz ohne Einzug. Außerdem wird die Größe der Überschriften auf ein erträgliches Maß reduziert.
+    Die Klasse verwendet KOMA-Script \cite{koma} und setzt automatisch die
+    Papiergröße auf A4, die Schriftgröße auf 10pt und die Absatzsteuerung auf
+    einen halben Absatz ohne Einzug. Außerdem wird die Größe der Überschriften
+    auf ein erträgliches Maß reduziert.
     
-    Auch die Fußzeile besteht nur aus der Seitenzahl unten rechts etwas im Randbereich gesetzt und ist fest vorgegeben. Damit die Anzahl der Seiten stimmt, muss das Dokument zweimal kompiliert werden, damit \LaTeX{} die Seitenmarke \texttt{LastPage} korrekt gesetzt \emph{und} wieder eingelesen hat.
+    Auch die Fußzeile besteht nur aus der Seitenzahl unten rechts etwas im
+    Randbereich gesetzt und ist fest vorgegeben. Damit die Anzahl der Seiten
+    stimmt, muss das Dokument zweimal kompiliert werden, damit \LaTeX{} die
+    Seitenmarke \texttt{LastPage} korrekt gesetzt \emph{und} wieder eingelesen hat.
     
-    Für den Satz von mathematischen Formeln wird die Umgebungen \texttt{amsmath} \cite{amsmath} eigentlich zwingend benötigt. Für verschiedene Symbole ist die Klasse \texttt{amssymb} sehr nützlich. Daher sind beide Pakete der American Mathematical Society bereits eingebunden. Zudem werden in mathematischen Umgebungen (\texttt{align}, \texttt{gather}, \ldots) alle Formeln automatisch linksbündig mit einem Einzug und ohne Nummerierung gesetzt. Die Nummerierung wird nur gesetzt, wenn auf die Formel bzw. die Zeile in der Formel referenziert wird. 
+    Für den Satz von mathematischen Formeln wird die Umgebungen \texttt{amsmath}
+    \cite{amsmath} eigentlich zwingend benötigt. Für verschiedene Symbole ist
+    die Klasse \texttt{amssymb} sehr nützlich. Daher sind beide Pakete der
+    American Mathematical Society bereits eingebunden. Zudem werden in
+    mathematischen Umgebungen (\texttt{align}, \texttt{gather}, \ldots) alle
+    Formeln automatisch linksbündig mit einem Einzug und ohne Nummerierung
+    gesetzt. Die Nummerierung wird nur gesetzt, wenn auf die Formel bzw. die
+    Zeile in der Formel referenziert wird. 
     
-    Schließlich ist das Paket \texttt{xcolor} \cite{xcolor} eingebunden und kann überall verwendet werden, wo eine Farbangabe gebraucht wird.
+    Damit alle Verweise in der PDF-Ausgabe als Hyperlinks dargestellt werden,
+    wird automatisch das Paket \texttt{hyperref} \cite{hyperref} eingebunden.
+    Links werden weder durch eine Farbe noch durch einen Rahmen hervorgehoben,
+    da das primäre Ausgabemedium für Übungsblätter Papier ist.\footnote{Und
+    auf Papier kann man leider noch immer keine Links anclicken\ldots} Die
+    Anker für die Links werden durch den \lstinline{\caption}-Befehl gesetzt. Daher
+    zeigen die Links immer auf das Ende der Float-Umgebung. Um diesen Umstand
+    zu optimieren wird autotisch das Paket \texttt{hypcap} \cite{hypcap} mit der
+    Option \texttt{all} geladen. Hier werden die Float-Umgebungen \lstinline{table},
+    \lstinline{table*}, \lstinline{figure} und \lstinline{figure*} so umdefniert, dass
+    der Anker am Anfang der Umgebung gesetzt wird. Dies verlangt aber, dass jede
+    der genannten Umgebungen genau einen \lstinline{\caption}-Befehl enthält.
+    
+    Schließlich ist das Paket \texttt{xcolor} \cite{xcolor} eingebunden und kann
+    überall verwendet werden, wo eine Farbangabe gebraucht wird.
     
   \task[Und wie benutze ich das jetzt?][Einbinden der Klasse]
     Um die Klasse zu verwenden, muss das \LaTeX{}-Dokument mit der Zeile
-    \begin{verbatim}
-      \documentclass{exercise}
-    \end{verbatim} 
-    beginnen. An dieser Stelle können auch die weiteren Optionen der Klasse angegeben werden.
+    \begin{lstlisting}[gobble=6]
+      \documentclass[<Optionen>]{exercise}
+    \end{lstlisting} 
+    beginnen. An dieser Stelle können auch die weiteren Optionen der Klasse
+    angegeben werden.
     
-    In einer stillen Verneigung an die gute alte Zeit und vor allem die gute alte Schreibmaschine, neigen noch heute viele Menschen dazu, den 1.5-fachen für den einzig waren Zeilenabstand zu halten. Um diesem Umstand gerecht zu werden -- oder einfach um möglichst viele Seiten zu füllen -- kann die Klasse angeweisen werden, 1.5-fachen Zeilenabstand zu setzen, indem bei der Einbindung die Option \texttt{biglinespread} ergänzt wird.
-    \begin{verbatim}
+    In einer stillen Verneigung an die gute alte Zeit und vor allem die gute
+    alte Schreibmaschine, neigen noch heute viele Menschen dazu, den 1.5-fachen
+    für den einzig waren Zeilenabstand zu halten. Um diesem Umstand gerecht zu
+    werden -- oder einfach um möglichst viele Seiten zu füllen -- kann die
+    Klasse angeweisen werden, 1.5-fachen Zeilenabstand zu setzen, indem bei
+    der Einbindung die Option \lstinline{biglinespread} ergänzt wird.
+    \begin{lstlisting}[gobble=6]
       \documentclass[biglinespread]{exercise}
-    \end{verbatim} 
+    \end{lstlisting}
     
-  \task[Was der Übungsleiter alles auf dem Zettet haben will][Kopfzeile]
-    Die Informationen in der Kopfzeile können mit drei Befehlen an die jeweilige Übung angepasst werden.
+    Die Option \lstinline{biglinespread} ist eine boolesche Option. Die Variante
+    ohne Wert steht für \lstinline{biglineskip=true}. Alternatativ können auch die
+    Werte \lstinline{true} oder \lstinline{on} zum Einschalten der Option oder
+    \lstinline{false}, sowie \lstinline{off} zum Abschalten der Option (was aber der
+    Standard ist) verwendet werden.
+    
+    Weitere Optionen werden in den Abschnitten
+    \emph{\hyperref[section-kopfzeile]{Kopfzeile}},
+    \emph{\hyperref[section-aufgaben]{Aufgaben}} und
+    \emph{\hyperref[section-farbe]{Farbe}} erläutert.
+    
+  \task[Was der Übungsleiter alles auf dem Zettet haben will][Kopfzeile]\label{section-kopfzeile}
+    Die Informationen in der Kopfzeile können mit drei Befehlen an die
+    jeweilige Übung angepasst werden.
     \begin{itemize}
-      \item In der Mitte der Kopfzeile befindet sich der Name der Übung (auf dieser Seite \enquote{\texttt{exercise}-Klasse}) und darunter die aktuelle Übung (z.\,B. \enquote{Zettel 42}) oder ein aderer Untertitel (auf dieser Seite \enquote{Anleitung}). Diese Informationen müssen der Klasse im Kopf deines Quellcodes (also noch vor \verb-\begin{document}-) mitgeteilt werden durch den Befehl
-        \begin{verbatim}
-          \exercise{<title>}{<subtitle>}  
-        \end{verbatim}
+      \item In der Mitte der Kopfzeile befindet sich der Name der Übung oder
+      ein anderer Dokumententitel (auf dieser Seite
+      \enquote{\texttt{exercise}-Klasse}) und darunter die aktuelle Übung
+      (z.\,B. \enquote{Übungszettel 42}) oder ein aderer Untertitel (auf dieser
+      Seite \enquote{Anleitung}). Diese Informationen müssen der Klasse im Kopf
+      deines Quellcodes (also noch vor dem Code \lstinline-\begin{document}-) mitgeteilt
+      werden durch den Befehl
+        \begin{lstlisting}[gobble=10]
+          \settitle[<Untertitel>]{<Titel>}  
+        \end{lstlisting}
         
-      \item Rechts oben in der Kopfzeile kann eine zusätzliche Information angegeben werden. Zum Beispiel die Namen der Studenten, die das Übungsblatt bearbeitet haben. Daher lautet der Befehl
-      \begin{verbatim}
-        \students{<info>} 
-      \end{verbatim}
-      Mehrere Studenten mit Matrikelnummer können angegeben werden durch
-      \begin{verbatim}
-        \students{Student A (123456)\\
-                  Student B (123456)}
-      \end{verbatim}
+        Dabei ist der Untertitel optional. Wird kein Untertitel angegeben und
+        ist die Option \lstinline{sheet} (siehe
+        \hyperref[section-aufgaben]{\emph{Aufgabe}}) gesetzt, so wird
+        automatisch ein Untertitel der Form \enquote{Übungszettel 42} erzeugt.
+        Damit die Option \lstinline{sheet} einen Untertitel setzen kann, muss
+        allerdings ein Titel gesetzt werden.
+        
+        Mithilfe des Paktes \texttt{hyperref} \cite{hyperref} wird automatisch der Untertitel als Titel und der Titel als Thema in den Dateieigenschaften des PDF-Dokumentes gesetzt. 
+        
+      \item Rechts oben in der Kopfzeile können die Namen der Studenten gesetzt werden. Der Befehl dazu lautet
+      \begin{lstlisting}[gobble=8]
+        \addstudent[<Nummer>]{<Name>} 
+      \end{lstlisting}
+      Dieser Befehl fügt der Liste der Studenten einen hinzu, wobei die Matrikelnummer (optionaler Parameter) in Klammern hinter den Namen gesetzt wird. Durch mehrmaliges Aufrufen des Befehls können beliebig viele Studenten hinzugefügt werden, wobei das Layout bis zu drei Namen gut verkraftet.
+      
+      Die Namen der Studenten ohne Matrikelnummern werden jeweils mit Komma getrennt als Autoren in den Eigenschaften des PDF-Dokumentes gesetzt.
         
       \item Links in der Kopfzeile kann eine zusätzliche Information von geringerer Bedeutung angegeben werden. Zum Beispiel die Übungsgruppe. Entsprechend schnell ist auch dieser Befehl erraten
-        \begin{verbatim}
-          \group{<info>}
-        \end{verbatim}
+        \begin{lstlisting}[gobble=10]
+          \setgroup{<info>}
+        \end{lstlisting}
     \end{itemize}
     
-  \task[Überschriften vollautomatisch -- naja fast][Aufgaben]
-    Überschriften können in dieser Klasse ganz normal durch \texttt{section}, \texttt{subsection}, \ldots gesetzt werden. Allerdings ist die Nummerierung ausgeschaltet, da die Überschrift normalerweise die Nummer der Aufgabe enthalten soll und eine doppelte Nummerierung der Form \enquote{1. Aufgabe 1} ist nicht sonderlich elegant. Da die meisten Übungszettel mit Aufgabe 1 beginnen und anschließend fortlaufend durchnummeriert sind, wurde wieder eine automatische Nummerierung eingeführt. Durch den Befehl \verb-\task- wird eine Überschrift \enquote{Aufgabe} inklusive Nummer automatisch gesetzt.
+  \task[Überschriften vollautomatisch -- naja fast][Aufgaben]\label{section-aufgaben}
+    Überschriften können in dieser Klasse ganz normal durch \lstinline{\section}, \lstinline{\subsection}, \ldots{} gesetzt werden. Allerdings ist die Nummerierung ausgeschaltet, da die Überschrift normalerweise die Nummer der Aufgabe enthalten soll und eine doppelte Nummerierung der Form \enquote{1. Aufgabe 1} ist nicht sonderlich elegant. Da die meisten Übungszettel mit Aufgabe 1 beginnen und anschließend fortlaufend durchnummeriert sind, wurde wieder eine automatische Nummerierung eingeführt. Durch den Befehl \lstinline-\task- wird eine Überschrift \enquote{Aufgabe} inklusive Nummer automatisch gesetzt.
     
-    Allerdings ist die eigentliche Funktion einer Überschrift, dass man sich in einem Dokuemnt zurechtfindet. Durch eine reine Nummerierung der Form \enquote{Aufgabe 1} bis \enquote{Aufgabe 42} ist das allerdings noch nicht direkt gewährleistet. Daher kann der Überschrift eine Ergänzung hinzugefügt werden, die etwas weniger stärkt und mit einem leichten Abstand neben die eigentliche Überschrift gesetzt wird.
-    \begin{verbatim}
+    Allerdings ist die eigentliche Funktion einer Überschrift, dass man sich in einem Dokuemnt zurechtfindet. Durch eine reine Nummerierung der Form \enquote{Aufgabe 1} bis \enquote{Aufgabe 42} ist das allerdings noch nicht direkt gewährleistet. Daher kann der Überschrift eine Ergänzung hinzugefügt werden, die weniger kräftig und mit einem leichten Abstand neben die eigentliche Überschrift gesetzt wird.
+    \begin{lstlisting}[gobble=6]
       \task[<Untertitel>]
-    \end{verbatim}
+    \end{lstlisting}
 
-    Soll die Zählung der Aufgaben nicht bei 1 beginnen, kann der Zähler \texttt{task} manuell auf den Wert der \emph{vorherigen} Aufgabe gesetzt werden. Soll die Nummerierung also mit 6 beginnen, muss der Zähler auf 5 gesetzt werden, da jeweils \emph{vor} der Ausgabe der Überschrift der Zähler inkrementiert wird.
-    \begin{verbatim}
+    Soll die Zählung der Aufgaben nicht bei 1 beginnen, kann mit der Klassenoption \texttt{task} die Nummer der ersten Aufgabe angegeben werden. Soll vor der Nummer der Aufgabe jedes Mal die Nummer des Aufgabenzettels gesetzt werden, muss der \texttt{exercise}-Klasse diese über die Klassenoption \lstinline{sheet} mitgeteilt werden. Dadurch wird bei Verwendung von \lstinline-\settitle- der Untertitel automatisch gesetzt (siehe \hyperref[section-kopfzeile]{Kopfzeile}). Damit die Nummer dann auch zu sehen ist, muss zusätzlich die boolesche Klassenoption \lstinline{prefix} angegeben werden. Sollen also beispielsweise die Aufgaben in der Form \enquote{Aufgabe 7.42}, \enquote{Aufgabe 7.43}, \ldots{} nummeriert werden, so muss die \texttt{exercise}-Klasse mit folgendem Befehl eingebunden werden:
+    \begin{lstlisting}[gobble=6]
+      \documentclass[sheet=7, prefix,
+                     task=42]{exercise}
+    \end{lstlisting} 
+
+    Für ganz abstruse Aufgabennummerierungen können die Zähler \lstinline{task} und \lstinline{sheet} manuell gesetzt werden. Dabei ist \lstinline{task} auf den Wert der \emph{vorherigen} Aufgabe gesetzt werden. Soll die Nummerierung also mit 6 beginnen, muss der Zähler auf 5 gesetzt werden, da jeweils \emph{vor} der Ausgabe der Überschrift der Zähler inkrementiert wird. Der Zähler \lstinline{sheet} hingegen wird nie inkrementiert, sondern nur ausgegeben.
+    \begin{lstlisting}[gobble=6]
       \setcounter{task}{12}
-    \end{verbatim}
+      \setcounter{sheet}{4}
+    \end{lstlisting}
 
     Versagt die automatische Zählung komplett, da die Aufgaben nicht nummeriert sind, oder aus anderen Gründen eine eigene Überschrift gesetzt werden soll, kann der Titel und der Untertitel manuell angegeben werden. Dabei ist die Reihenfolge der Optionen zu beachten!
-    \begin{verbatim}
-       \task[<Untertitel>][<Titel>]
-    \end{verbatim}
+    \begin{lstlisting}[gobble=6]
+      \task[<Untertitel>][<Titel>]
+    \end{lstlisting}
+    
+    Soll statt intern von \lstinline-\task- ein anderer Befehl statt \lstinline-\section- verwendet werden, so kann der Befehl \lstinline-\taskcommand- umdefiniert werden:
+    \begin{lstlisting}[gobble=6]
+      \renewcommand{\taskcommand}{subsection}
+    \end{lstlisting}
   
   \task[Und wenn meine Aufgabe mehr Teile hat?][Listen]
-    Um möglichst elegant einzelne Teilaufgaben markieren zu können, wird das Paket \texttt{paralist} \cite{paralist} eingebunden. Diese Paket löst zwei wesentliche Probleme der klassischen \LaTeX{}-Listen. Zum einen können damit die Arten der Nummerierung elegant gewechselt werden, und zum zweiten gibt es zusätzliche Umgebungen für Listen ohne vertikalen Abstand. Enthalten alle Listenpunkte nur eine Zeile Text, sieht der große Abstand zwischen den Listenpunkten meist etwas übertrieben aus. Hier können die Umgebungen \texttt{compactenum} und \texttt{compactitem} verwendet werden.
+    Um möglichst elegant einzelne Teilaufgaben markieren zu können, wird das Paket \texttt{paralist} \cite{paralist} eingebunden. Diese Paket löst zwei wesentliche Probleme der klassischen \LaTeX{}-Listen. Zum einen können damit die Arten der Nummerierung elegant gewechselt werden, und zum zweiten gibt es zusätzliche Umgebungen für Listen ohne vertikalen Abstand. Enthalten alle Listenpunkte nur eine Zeile Text, sieht der große Abstand zwischen den Listenpunkten meist etwas übertrieben aus. Hier können die Umgebungen \lstinline{compactenum} und \lstinline{compactitem} verwendet werden.
     
-    Zum Gliedern von Unteraufgaben eignet sich meist die normale \texttt{enumerate}-Umgebung schon sehr gut. In der Regel entspricht die automatische Nummerierung aber nicht dem Aufgabenblatt. Die Nummerierung kann entweder als Option für genau eine Liste geändert werden oder durch die Befehle \verb-\setdefaultitem{}{}{}{}- und \verb-\setdefaultenum{}{}{}{}-. Beiden Befehlen werden jeweils die Werte für Listen erster bis vierter Ordnung übergeben. Wird ein Parameter leer gelassen, bleibt der Standard erhalten. Für ungeordnete Listen kann eine beliebige Zeichenfolge übergeben werden, die exakt in der Form als Listenpunkt verwendet wird. Für Aufzählungen werden die Buchstaben \texttt{i}, \texttt{I}, \texttt{a}, \texttt{A} und \texttt{1} durch die Nummer im entsprechenden Format ersetzt. Soll ein solches Zeichen nicht ersetzt werden, muss es in geschweifte Klammern eingeschlossen werden. So kann zum Beispiel die Art der Nummerierung für Listen erster Ordnung geäbdert werden durch
-    \begin{verbatim}
-      \setdefaultenum{{Teil} I}{}{}{}  
-    \end{verbatim}
-    Der linke Abstand der Liste passt sich automatisch an. Soll die Nummerierung nur für eine Liste geändert werden, reicht eine Option aus.
-    \begin{verbatim}
-      \begin{enumerate}[a)]
-        \item <Teil a>
-        \item <Teil b>
-        \item <Teil c>
-      \end{enumerate}
-    \end{verbatim}
-    Der linke Abstand passt sich ebenfalls automatisch an. Im Zweifelsfall funktioniert obiger Befehl aber zuverlässiger.
+    Da Teilaufgaben meistens mit \enquote{a)}, \enquote{b)}, \ldots{} nummeriert werden, wird die Art der Nummerierung der Umgebungen \lstinline{enumerate} und \lstinline{compactenum} von der \texttt{exercise}-Klasse folgendermaßen gesetzt:
+    \begin{compactenum}
+      \item erste Ebene
+        \begin{compactenum}
+          \item zweite Ebene
+            \begin{compactenum}
+              \item dritte Ebene
+                \begin{compactenum}
+                  \item vierte Ebene
+                \end{compactenum}
+            \end{compactenum}
+        \end{compactenum}
+    \end{compactenum}
+    
+    Eine alternative Nummerierung wird durch die zusätzliche Umgebung \lstinline{varenumerate} und \lstinline{varcompactenum} bereitgestellt. Da die Nummerierung von den Umgebungen gewechselt wird, können innerhalb der Umgebungen auch wieder die normalen Umgebungen verwendet werden und die alternative Nummerierung wird trotzdem fortgesetzt:
+    \begin{varcompactenum}
+      \item erste Ebene
+        \begin{compactenum}
+          \item zweite Ebene
+            \begin{compactenum}
+              \item dritte Ebene
+                \begin{compactenum}
+                  \item vierte Ebene
+                \end{compactenum}
+            \end{compactenum}
+        \end{compactenum}
+    \end{varcompactenum}
+    
+    Nicht nummerierte Listen haben auch in der \texttt{exercise}-Klasse die normale \LaTeX{}-Form:
+    \begin{compactitem}
+      \item erste Ebene
+        \begin{compactitem}
+          \item zweite Ebene
+            \begin{compactitem}
+              \item dritte Ebene
+                \begin{compactitem}
+                  \item vierte Ebene
+                \end{compactitem}
+            \end{compactitem}
+        \end{compactitem}
+    \end{compactitem}
+    
+    Gerade bei der Verwendung von \lstinline{compactitem} möchte man allerdings oft auf die erste Ebene verzichten und direkt mit den Strichen beginnen. Für diesen Fall steht auch hier eine alternative Umgebung \lstinline{varitemize} und \lstinline{varcompactitem} zur Verfügung:
+    \begin{varcompactitem}
+      \item erste Ebene
+        \begin{compactitem}
+          \item zweite Ebene
+            \begin{compactitem}
+              \item dritte Ebene
+                \begin{compactitem}
+                  \item vierte Ebene
+                \end{compactitem}
+            \end{compactitem}
+        \end{compactitem}
+    \end{varcompactitem}
+    
+    Soll die Nummerierung noch weiter den eigenen Ansprüchen oder dem Aufgabenzettel angepasst werden stehen zwei Möglichkeiten zur Auwahl bereit: Die Nummerierung kann entweder als Option für genau eine Liste geändert werden oder durch die Befehle \lstinline-\setdefaultitem- und \lstinline-\setdefaultenum-. Beiden Befehlen werden jeweils die Werte für Listen erster bis vierter Ordnung übergeben. Wird ein Parameter leer gelassen, bleibt der Standard erhalten. Für ungeordnete Listen kann eine beliebige Zeichenfolge übergeben werden, die exakt in der Form als Listenpunkt verwendet wird. Für Aufzählungen werden die Buchstaben \texttt{i}, \texttt{I}, \texttt{a}, \texttt{A} und \texttt{1} durch die Nummer im entsprechenden Format ersetzt. Soll ein solches Zeichen nicht ersetzt werden, muss es in geschweifte Klammern eingeschlossen werden. Soll die farbliche Hervorhebung der Nummerierungen erhalten bleiben, so muss diese expliziet angegeben werden. So kann zum Beispiel die Art der Nummerierung für Listen erster Ordnung geäbdert werden durch
+    \begin{lstlisting}[gobble=6]
+      \setdefaultenum{\color{maincolor}{Teil} I}{}{}{}  
+    \end{lstlisting}
+    Der linke Abstand der Liste wird durch diesen Befehlt \emph{nicht} automatisch angepasst. Reicht der Standard-Abstand nicht aus, muss der Abstand mithilfe des Befehls \lstinline-\setdefaultleftmargin- vergrößert werden. Die \LaTeX{}-Standardwerte werden eingestellt durch
+    \begin{lstlisting}[gobble=6]
+      \setdefaultleftmargin{2.5em}{2.2em}{1.87em}{1.7em}{1em}{1em}
+    \end{lstlisting}
+    Die Standardwerte heißen natürlich so, weil sie voreingestellt sind. Die Werte dienen daher nur der Orientierung für Umdefinitionen. Ein erneutes Setzen ist sinnfrei.
+    
+    Soll die Nummerierung nur für eine Liste geändert werden, reicht eine Option aus.
+    \begin{lstlisting}[gobble=6]
+      \begin{compactenum}[A)]
+        \item eine
+        \item kurze
+        \item Liste.
+      \end{compactenum}
+    \end{lstlisting}
+    Wir erhalten
+    \begin{compactenum}[A)]
+      \item eine
+      \item kurze
+      \item Liste.
+    \end{compactenum}
+    Der linke Abstand passt sich in diesem Fall automatisch an. Der Mechansimus
+    versagt allerdings manchmal, sodass man zu obiger Methode greifen muss.
+    Man beachte, dass trotz manuellen Setzens
+    der Numerierung, die Zahlen trotzdem in Farbe gesetzt werden. Durch explizites
+    Angeben einer Farbe kann dieses Verhalten aber überschrieben werden.
+    
+  \task[Wenn langweilige normale Listen einfach nicht mehr ausreichen][Listen\texttt{++}]
+    Der Befehl
+    \begin{lstlisting}[gobble=6]
+      \begin{compactdingitem}{52}
+        \item eine ganz
+        \item neue Form
+        \item der Liste.
+      \end{compactdingitem}
+    \end{lstlisting}
+    liefert
+    \begin{compactdingitem}{52}
+      \item eine ganz
+      \item neue Form
+      \item der Liste.
+    \end{compactdingitem}
+    Dabei ist 52 ein Symbol aus dem Zapf Dingbats Font. Andere Fonts
+    aus dem \texttt{pifont} Paket können ebenfalls verwendet werden,
+    wenn der Name des Fonts als optionaler Parameter angeben wird.
+    Für Zapf Dingbats ist \texttt{pzb} voreingestellt.
+    Analog zur Umhgebung \lstinline-compactdingitem- existiert auch noch die
+    Umgebungen \lstinline-dingitem-.
+    
+    Die Umgebungen \lstinline-dingenum- und \lstinline-compactdingenum-
+    funktionen ähnlich, inkrementieren den Index des Zeichens aber
+    für jeden Listenpunkt. Auf diese Weise können die Zahlen der Zapf Dingbats
+    für numerierte Listen verwendet werden. Es können natürlich auch
+    andere Zeichen auf diese Weise benutzt werden. So liefert
+    \begin{lstlisting}[gobble=6]
+      \begin{compactdingenum}{168}
+        \item eine Liste,
+        \item die irgendwie
+        \item an Kartenspiele
+        \item erinnert.
+      \end{compactdingenum}
+    \end{lstlisting}
+    zum Beispiel
+    \begin{compactdingenum}{168}
+      \item eine Liste,
+      \item die irgendwie
+      \item an Kartenspiele
+      \item erinnert.
+    \end{compactdingenum}
+    
+    Andere Fonts
+    aus dem \texttt{pifont} Paket können auch hier verwendet werden,
+    wenn der Name des Fonts als optionaler Parameter angeben wird.
+    Enumerationen dieser Art können leider im Moment nicht verschachtelt
+    werden, da der Autor dieser Klasse die Counter dazu nicht ausreichend
+    im Griff hat.
+    
+    \begin{table}
+      \begin{quote}
+        \raggedright
+        \newcommand{\displayding}[1]{\makebox[4ex]{#1:}\makebox[1cm]{\color{maincolor}\Pisymbol{pzd}{#1}}{ }}
+        \foreach \x in {33,...,126} {\displayding{\x}}% avoid extra space
+        \foreach \x in {161,...,254} {\displayding{\x}}
+        \caption{Referenz aller Zeichen aus der Zapf Dingbats.}
+        \label{table-ding}
+      \end{quote}
+    \end{table}
+    
+    In \autoref{table-ding} findet sich eine Übersicht aller Symbole aus der
+    Zapf Dingbats.
 
   \task[Wie sieht sowas denn jetzt aus][vollständiges Beispiel]
-    \begin{verbatim}
-      \documentclass{exercise}
+    \begin{lstlisting}[gobble=6]
+      \documentclass[sheet=3, task=6, prefix, biglineskip]{exercise}
       
-      \group{Gruppe 4}
-      \exercise{Analysis I}{Übung 23}
-      \students{Malte Schmitz (123456) \\ Max Muster (789012)}
+      \setgroup{Gruppe 4}
+      \settitle{Analysis I}
+      \addstudent[123456]{Malte Schmitz}
+      \addstudent[789012]{Max Muster}
       
       \begin{document}
-        \task
-          \begin{enumerate}[a)]
+        \task[ein Beispiel]
+          \begin{enumerate}
             \item Hier kommt die Bearbeitung der erste Aufgabe.
             
               Noch ein Absatz.
@@ -125,39 +364,209 @@
               Noch ein Absatz
           \end{enumerate}
         
-        \task
+        \task[ein mathematisches Beispiel]
           Hier kommt die Bearbeitung der zweiten Aufgabe.
+          
+          [a^2+b^2=c^2]
           
           Noch ein Absatz.
       \end{document}
-    \end{verbatim}
+    \end{lstlisting}
 
   \task[w.\,z.\,b.\,w. -- was zu bezweifeln wäre][Beweis]
-    Für den Satz von Beweisen wird gerne die \texttt{proof}-Umgebung aus dem \texttt{amsthm}-Paket \cite{amsthm} empfohlen. Soll diese verwendet werden, muss das Paket explizit geladen werden und überschreibt dann die \texttt{proof}-Umgebung dieser Klasse. Da auf den meisten Übungsblättern nur die Umgebung für Beweis benötigt wird und die weiteren Funktionen der Theorem-Klasse nicht gebraucht werden, stellt diese Klasse eine eigenen Beweis-Umgebung zur Verfügung.
+    Für den Satz von Beweisen wird gerne die \lstinline{proof}-Umgebung aus dem \texttt{amsthm}-Paket \cite{amsthm} empfohlen. Soll diese verwendet werden, muss das Paket explizit geladen werden und überschreibt dann die \lstinline{proof}-Umgebung dieser Klasse. Da auf den meisten Übungsblättern nur die Umgebung für Beweis benötigt wird und die weiteren Funktionen der Theorem-Klasse nicht gebraucht werden, stellt diese Klasse eine eigenen Beweis-Umgebung zur Verfügung.
     
     Da dem Autor dieser Klasse die optische Kennzeichnung von Beweisen nicht zusagte, sind Beweise in dieser Klasse etwas deutlicher hervorgehoben. Wie das Original schreibt die Umgebung vor den Beweis das Wort \enquote{Beweis} und beendet den Beweis automatisch mit dem Kasten-Symbol.
-    \begin{verbatim}
-      <Satz>
+    
+    Damit man zunächst formschön etwas behaupten und anschließend beweisen kann, steht ebenfalls eine \lstinline{claim}-Umgebung zur Verfügung. Zusammen ergibt sich folgende Verwendung
+    \begin{lstlisting}[gobble=6]
+      \begin{claim}
+        <Behauptung>
+      \end{claim}
+      
       \begin{proof}
         <Beweis>
       \end{proof}
-    \end{verbatim}
-  Soll nur der Kasten unter einen Text gesetzt werden, ohne die Beweis-Umgebung zu verwenden, kann der Befehl \verb-\qed- verwendet werden. Der Kasten wird automatisch nach rechts geschoben.
+    \end{lstlisting}
+    
+    Endet der Beweis mit einer mathematischen Formel oder einer Liste, landet das q.\,e.\,d.-Symbol unter der Umgebung und damit eine Zeile zu tief. Zur Vermeidung dieser unschönen Verschiebung kann das Symbol mit dem Befehl \lstinline-\qed- in der Umgebung gesetzt werden. Da der Befehl in einer \lstinline{proof}-Umgebung nur bei der ersten Verwendung ein Symbol setzt, wird am Ende der Umgebung dann kein Symbol mehr gesetzt:
+    \begin{lstlisting}[gobble=6]
+      \begin{proof}
+        \ldots
+        
+        Und damit ergibt sich
+        \[ f(\code(G, s, t)) \in 2k\textsc{-colorable}. \qed \]
+      \end{proof}
+    \end{lstlisting}
+    
+  Soll nur der Kasten unter einen Text gesetzt werden, ohne die Beweis-Umgebung zu verwenden, kann der Befehl \lstinline-\qed- verwendet werden. Der Kasten wird automatisch nach rechts geschoben.
+    
+    Soll ein anderes Symbol gesetzt werden, muss der Befehl \lstinline-\qedsymbol- umdefiniert werden:
+    \begin{lstlisting}[gobble=6]
+      \renewcommand{\qedsymbol}{q.\,e.\,d.}
+    \end{lstlisting}
+
+  \task[Mir ist das alles zu orange hier!][Farbe]\label{section-farbe}
+    Die Standardfarbe der \texttt{exercise}-Klasse für alle Fälle ist Orange. Denn Orange hat den großen Vorteil, dass im Gegensatz zu rot und grün keine unmittelbare Bedeutung hat, sich besser als blau vom schwarzen Text abhebt und besser als gelb zu vom weißen Hintergrund. Wem trotzt aller Argumente das Orange einfach nicht gefallen will, der kann die Hauptfarbe durch die Klassenoption \lstinline{maincolor} ändern. Diese Option muss beim Einbinden der Klasse angegeben werden:
+    \begin{lstlisting}[gobble=6]
+      \documentclass[maincolor=purple]{exercise}
+    \end{lstlisting}
+    
+    Im Dokument kann \lstinline{maincolor} als normale Farbe verwendet werden. Das hat den Vorteil, dass sich auch durch eigenen Farbspielereien an den aktuellen Farbstil anpassen. Natürlich lässt sich der ganze Farbenspuk durch setzen von \lstinline{maincolor=black} auch ganz abschalten.
+    
+    Für Studenten der Universität zu Lübeck kann durch
+    \begin{lstlisting}[gobble=6]
+      \documentclass[maincolor=uni-luebeck]{exercise}
+    \end{lstlisting}
+    die Farbe für alle Fälle auf die offizielle Farbe der Universität gesetzt werden. Bezüglich der Tauglichkeit dieser Farbe oder gar dem neuen Logo der Uni überlasse ich an dieser Stelle das Urteil dem geneigten Leser.
     
   \task[deutsche Gänsefüßchen haben es schwer][Anführungszeichen]
     Da die Verwendung korrekter Anfürhungszeichen in \LaTeX{} immer etwas trickreich ist, wird das Paket \texttt{csquotes} \cite{csquotes} eingebunden und die Form der Anführungszeichen auf die deutschen Guillemets gesetzt. Auf diese Weise können Wörter oder ganze Sätze durch einen einfachen Befehl in Anführungszeichen gesetzt werden, ohne dass der Autor sich um die korrekte Verwendung kümmern muss.
-    \begin{verbatim}
+    \begin{lstlisting}[gobble=6]
       \enquote{<Text>}
-    \end{verbatim}
+    \end{lstlisting}
+    
+    Da der Autor dieser Klasse die deutschen Guillemets den klassischen deutschen Gänsefüßchen vorzieht, werden diese von \lstinline-\enquote- gesetzt. Werden in besonderen Fällen klassische Anführungszeichen benötigt, können diese am einfachsten mit den Befehlen \lstinline-\glqq- (\glqq), \lstinline-\glq- (\glq), \lstinline-\grq- (\grq) und \lstinline-\grqq- (\grqq) gesetzt werden.
+    
+  \task[Wir können auch fremdländisch][Sprachunterstützung]
+    Die \texttt{exercise}-Klasse hat eine eingebaute Sprachunterstützung, die es bisher erlaubt, die Klasse auf englisch umzuschalten. Die Sprachoption wird an das \texttt{babel}-Paket \cite{babel} weitergereicht, was viele \LaTeX{}-Standard-Texte übersetzt und die typografischen Konventionen auf englisch umschaltet. Weiterhin werden die Texte der \texttt{exercise}-Klasse (Aufgabe, Übungszettel, Beweis, Behauptung) auf Englisch gesetzt. Um die Sprache auf Englisch umzuschalten muss die Klasse mit der Option \lstinline{language} geladen werden.
+    \begin{lstlisting}[gobble=6]
+      \documentclass[language=en]{exercise}
+    \end{lstlisting}
+    Gültige Werte für den Schlüssel \lstinline{language} sind derzeit \lstinline{en} und \lstinline{de}.
+    
+    Sollen die Texte der der \texttt{exercise}-Klasse darüber hinaus angepasst werden, müssen die entsprechenden Befehle umdefiniert werden. Die deutschen Texte würde man durch folgende Befehle erhalten.
+    \begin{lstlisting}[gobble=6]
+      \renewcommand{\taskname}{Aufgabe}
+      \renewcommand{\sheetname}{"Ubungszettel}
+      \renewcommand{\proofname}{Beweis}
+      \renewcommand{\claimname}{Behauptung}
+    \end{lstlisting}
+    Die Anweisungen sind natürlich sinnlos, da die Texte bereits deutsch sind. Sie dienen hier nur der Veranschaulichung des Prinzips und der allgemeinen Orientierung.
+    
+  \task[des echten Informatikers liebste Aufgabe][Quellcode]
+    
+    Zum Formschönen setzen von Quellcode ist das \texttt{listings} Paket
+    \cite{listings} ideal. Da es automatisch eingebunden wird, stehen die
+    folgenden Befehle zur Verfügung:
+    
+    \begin{itemize}
+      \item \lstinline{\lstset}
+      
+        Hiermit können global Optionen gesetzt werden. Dies ist auch als
+        optionaler Parameter jeweils in den folgenden Befehlen möglich. Eine
+        Auswahl wichtiger Optionen:
+        \begin{description}
+          \item[numbers] Standardmäßig werden die Zeilen nummeriert. Mit dem
+            Wert \texttt{none} kann dies abgeschaltet werden.
+          \item[caption] Beschriftung für das Listing angeben.
+          \item[gobble] Anzahl Zeichen am Anfang jeder Zeile abschneiden.
+            Sinnvolle Option, wenn der Quellcode im
+            \LaTeX{}-Quellcode eingerückt werden soll.
+          \item[mathescape] Mit dem Wert \texttt{true} kann das automatische
+            Escapen von \$-Zeichen aktiviert werden. So können mathematische
+            Formeln in Pseudo-Code verwendet werden.
+          \item[language] Die Sprache für das Syntax-Highlighting.
+          \item[identifierstyle] Kommandos, die den Stil für Bezeichner
+            festlegen. Durch die Verwendung von \lstinline!\color{black}!
+            kann zum Beispiel die
+            blaue Hervorhebung deaktiviert werden.
+          \item[morekeywords] erlaubt die Definition weiterer Schlüsselwörter.
+        \end{description}
+        
+      \item \lstinline{lstlisting}
+        
+        Umgebung, die das direkte Einfügen von Quellcode erlaubt.
+      
+      \item \lstinline{\lstinputlisting}
+      
+        Befehl, der dann Einfügen von Quellcode aus externen Dateien erlaubt.
+      
+      \item \lstinline{\lstinline}
+      
+        Befehl, der das Auszeichnen von Quellcode-Stücken im Fließtext erlaubt.
+    \end{itemize}
+    
+    Leider hat dieses Paket einige Schwierigkeiten mit UTF-8 Sonderzeichen. Daher
+    funktioniert es in dieser Klasse nur stabil mit ASCII-Zeichen. Einige wenige
+    deutsche Sonderzeichen können auch verwendet werden, werden aber immer
+    schwarz dargestellt. Erlaubt sind ä, ü, ö und ß.
+    
+  \task[Striche sind ganz böse][Tabellen]
+  
+    Auch wenn Tabellen gerne durch eine Vielzahl von (faszinierender Weise in \LaTeX{} auch gerne doppelt und dreifachen) Strichen dargstellt werden, so erhöht dies die Lesbarkeit selten. Hat man mit dem Bleistift oder der Schreibmaschine wenig andere Möglichkeiten, so bietet es sich im professionellen Textsatz doch an, Tabellen mit möglichst wenigen Strichen zu setzen. Vertikale Striche, die in den meisten Fällen einfach nur den horizontalen Lesefluss unterbrechen, sollten so wenig wie möglich eingesetzt werden. Horizontale Striche können zur Abtrennung von Kopfzeilen und Bereichen verwendet werden. Eleganter ist aber die dezente farbige Hinterlegung der Tabellenzellen.
+    
+    Wie das vorgangegenagen Plädoyer für farbige Tabellen schon vermuten lässt, sind diese in der \texttt{exercise}-Klasse leicht zu realisieren. Die Umgebung \lstinline-zebratabular- verhält sich genau wie \lstinline-tabular- mit dem einzigen Unterschied, dass die Tabelle automatisch abwechselnd gefärbte Zeilen hat. Um die automatisch Färbung innerhalb der Tabelle ab- und wieder einzuschalten können die Befehle \lstinline-\hiderowcolors- und \lstinline-\showrowcolors- aus dem \texttt{xcolor}-Paket \cite{xcolor} verwendet werden. Um die Kopfzeile etwas kräftiger einzufärben steht der Befehl \lstinline-\headerrow- zur Verfügung. Dieser muss zu Beginn der Kopfzeile eingefügt werden.
+    
+    Im Gegensatz zu früheren Versionen der \texttt{exercise}-Klasse werden mit
+    der \lstinline-tabular--Umgebung gesetzte Tabellen nicht mehr automatisch eingefärbt, sodass auch mit der \lstinline-array--Umgebung und verwandten Matrix- und Vektor-Umgebungen gesetzte Formeln nicht mehr farbig hinterlegt werden.
+    
+    Wem das jetzt alles zu schnell ging, der vergnüge sich mit dem folgenden Beispiel.
+    
+    \begin{zebratabular}{llr}
+      \headerrow Jahr & Prozessor & MHz \\
+      1975 & 6502 (C64) & 1 \\
+      1985 & 80386 & 16 \\
+      2005 & Pentium 4 & 2\,800 \\
+      2030 & Phoenix 3 & 7\,320\,000 \\
+      \hiderowcolors
+      2050 & \ldots \\
+      2070 & \ldots
+    \end{zebratabular}
+    
+    Und hier der entsprechende \LaTeX-Code:
+    
+    \begin{lstlisting}[gobble=6]
+      \begin{zebratabular}{llr}
+        \headerrow Jahr & Prozessor & MHz \\
+        1975 & 6502 (C64) & 1 \\
+        1985 & 80386 & 16 \\
+        2005 & Pentium 4 & 2\,800 \\
+        2030 & Phoenix 3 & 7\,320\,000 \\
+        \hiderowcolors
+        2050 & \ldots \\
+        2070 & \ldots
+      \end{zebratabular}
+    \end{lstlisting}
+    
+    Weitere Informationen über die Verwendung von \texttt{xcolor} in Tabellen
+    und anderen Fällen finden sich in \cite{uwe-xcolor}.
+
+  \task[Pfeil oder nicht Pfeil?][Vektoren]
+    Der Befehl \lstinline-\vec a- kann verwendet werden, um einen Vektor $\vec a$
+    zu erzeugen. Mathematiker setzen Vektoren normalerweise fett.
+    Da Tafeln und Stifte keinen Fettdruck
+    beherrschen, werden handschriftliche Vektoren unterstrichen.
+    Physiker markieren
+    Vektoren gerne mit einem kleinen Pfeil über dem Zeichen. Um zwischen allen
+    diesen Varianten auswählen zu können, steht die Klassenoption
+    \lstinline-vec- mit den möglichen Werten \lstinline-bold-,
+    \lstinline-underline- und \lstinline-arrow- zur Verfügung.
+    Voreingestellt ist die Option \lstinline-bold-.
     
   \task[kleine Tricks vereinfachen das Leben][weitere Befehle]
-    Der Befehl \verb-\tick- setzt einen Haken \tick.
+    Der Befehl \lstinline-\tick- setzt einen Haken \tick.
     
-    Die Befehle \verb-\R-, \verb-\N-, \verb-\Z-, \verb-\K-, \verb-\Q- setzen in der Mathe-Umgebung die Zahlenräume bzw. Körper $\R, \N, \Z, \K, \Q$.
+    Die Befehle \lstinline-\R-, \lstinline-\N-, \lstinline-\Z-, \lstinline-\Q- setzen in der Mathe-Umgebung die Zahlenräume $\R, \N, \Z, \Q$. Für weitere Mengen steht die Abkürzung \lstinline-\set- zur
+    Verfügung. So führen zum Beispiel die Befehle \lstinline-$\set K \subset \set P$- zu $\set K \subset \set P$.   
     
-    Der Befehl \verb-\blitz- kann verwendet werden, um einen Widerspruch anzuzeigen. \blitz
+    Der Befehl \lstinline-\blitz- kann verwendet werden, um einen Widerspruch anzuzeigen. \blitz
     
-    \inhead{kleine Überschrift} Der Befehl \verb-\inhead- kann ähnlich dem Befehl \verb-\paragraph- verwendet werden, um einem Absatz eine Überschrift zu geben. Anders als \texttt{paragraph} führt \texttt{inhead} aber keine weitere interne \LaTeX{}-Magie aus, sodass er an jeder Stelle verwendet werden kann und die Überschrift nicht in Verzeichnisse aufgenommen wird.
+    \inhead{kleine Überschrift} Der Befehl \lstinline-\inhead- kann ähnlich dem Befehl \lstinline-\paragraph- verwendet werden, um einem Absatz eine Überschrift zu geben. Anders als \lstinline-\paragraph- führt \lstinline-\inhead- aber keine weitere interne \LaTeX{}-Magie aus, sodass er an jeder Stelle verwendet werden kann und die Überschrift nicht in Verzeichnisse aufgenommen wird.
+    
+    Der Befehl \lstinline-\dx- kann verwendet werden, um das $dx$ nach einem Integral schöner zu setzen. Für eine andere Integrationsvariable steht \lstinline-\dx[Variable]- zur Verfügung. Für die Integrationsvariable $t$ existiert die Abkürzung \lstinline-\dt-.
+    
+    Der Befehl \lstinline-\trans- kann verwendet werden, um das Transponiert-Symbol an einer Matrix ($\trans A$) schöner zu setzen. \lstinline-\trans A- ist eine Abkürzung für \lstinline-A^\text{T}-.
+    
+    Der Befehl \lstinline-\zz- erzeugt im Mathe-Modus das
+    Symbol $\zz{}$ aus zwei Zs um eine Behauptung zu markieren.
+    
+    Um Operatoren im Mathe-Modus verwenden zu können, kann \lstinline-\DeclareMathOperator-
+    aus dem Paket \texttt{amsmath} \cite{amsmath} im Header verwendet werden.
+    Dabei wird aber ein eigener Befehl definiert.
+    Um nur \enquote{mal schnell}
+    einen Operator zu setzen, kann der Befehl \lstinline-\operatorname- verwendet werden.
+    In dieser Klasse wird der Alias \lstinline-\op- definiert.
     
   \begin{thebibliography}{22}
     \bibitem{koma} Frank Neukam, Markus Kohm und Axel Kielhorn: \\
@@ -176,6 +585,22 @@
     \emph{Extending \LaTeX's color facilities: the xcolor package}, 21. Januar 2007. \\
     \href{http://mirror.ctan.org/macros/latex/contrib/xcolor/}{CTAN://macros/latex/contrib/xcolor/}.
     
+    \bibitem{uwe-xcolor} Dr. Uwe Kern: \\
+    \emph{Farbspielereien in \LaTeX{} mit dem xcolor-Paket}, erschienen in \emph{Die TEXnische Komödie 2/2004}, S. 35–53. \\
+    \href{http://www.olos.de/~ukern/publ/tex/pdf/dtk200402.pdf}{http://www.olos.de/~ukern/publ/tex/pdf/dtk200402.pdf}.
+    
+    \bibitem{hyperref} Sebastian Rahtz und Heiko Oberdiek: \\
+    \emph{Hypertext marks in \LaTeX{}: a manual for hyperref}, Dezember 2009. \\
+    \href{http://mirror.ctan.org/macros/latex/contrib/hyperref/}{CTAN://macros/latex/contrib/hyperref/}.
+    
+    \bibitem{hypcap} Heiko Oberdiek: \\
+    \emph{The hypcap package}, 8. September 2008. \\
+    \href{http://mirror.ctan.org/macros/latex/contrib/oberdiek/}{CTAN://macros/latex/contrib/oberdiek/}.
+    
+    \bibitem{babel} Johannes Braams: \\
+    \emph{Babel, a multilingual package for use with \LaTeX{}'s standard document classes}, 6. Juli 2008. \\
+    \href{http://mirror.ctan.org/macros/latex/required/babel/}{CTAN://macros/latex/required/babel/}.
+    
     \bibitem{paralist} Bernd Schandl: \\
     \emph{paralist, Extended List Environments}, 9. Mai 2005. \\
     \href{http://mirror.ctan.org/macros/latex/contrib/paralist/}{CTAN://macros/latex/contrib/paralist/}.
@@ -183,5 +608,10 @@
     \bibitem{csquotes} Philipp Lehmann: \\
     \emph{The csquotes package}, 23. September 2009. \\
     \href{http://mirror.ctan.org/macros/latex/contrib/csquotes/}{CTAN://macros/latex/contrib/csquotes/}.
+    
+    \bibitem{listings} Carsten Heinz, Brooks Moses: \\
+    \emph{The Listings Package}, 22. Februar 2007. \\
+    \href{http://mirror.ctan.org/macros/latex/contrib/listings}{CTAN://macros/latex/contrib/listings}.
+    
   \end{thebibliography}  
 \end{document}
