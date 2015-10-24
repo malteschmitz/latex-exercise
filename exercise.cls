@@ -57,15 +57,15 @@
   \ifthenelse{\equal{#2}{}}{%
     \addtocounter{task}{1}%
     \ifthenelse{\equal{#1}{}}{%
-      \invoketaskcommand{\textcolor{maincolor}{\taskname{} \thetask}}%
+      \invoketaskcommand{\taskname{} \thetask}%
     }{%
-      \invoketaskcommand[\taskname{} \thetask: #1]{\textcolor{maincolor}{\taskname{} \thetask}\quad\mdseries #1}%
+      \invoketaskcommand[\taskname{} \thetask: #1]{\taskname{} \thetask\quad\mdseries\color{black}#1}%
     }%
   }{%
     \ifthenelse{\equal{#1}{}}{%
-      \invoketaskcommand{\textcolor{maincolor}{#2}}%
+      \invoketaskcommand{#2}%
     }{%
-      \invoketaskcommand[#2: #1]{\textcolor{maincolor}{#2}\quad\mdseries #1}%
+      \invoketaskcommand[#2: #1]{#2\quad\mdseries\color{black}#1}%
     }%
   }%
 }
@@ -104,6 +104,9 @@
 \setkomafont{pageheadfoot}{\small\sffamily}
 \setkomafont{pagefoot}{\large\sffamily}
 \setkomafont{headtopline}{\color{maincolor}}
+
+% add maincolor to section layout
+\addtokomafont{section}{\color{maincolor}}
 
 % enable colors
 \RequirePackage[table]{xcolor}
@@ -176,6 +179,9 @@
 % nice dx symbol
 \newcommand{\dx}[1][x]{\,\mathrm{d}#1}
 \newcommand{\dt}{\dx[t]}
+
+% nice transposed symbol
+\newcommand{\trans}[1]{{#1}^\text{T}}
 
 % better list envorinment
 \RequirePackage{paralist}
