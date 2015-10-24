@@ -77,6 +77,7 @@
 \clearscrheadfoot
 \automark{section}
 \newcommand{\setgroup}[1] {\ihead{#1}}
+
 \newcommand{\addstudent}[2][]{%
   \scr@ifundefinedorrelax{@students@value}{%
     \newcommand{\@students@value}{#2 \ifthenelse{\equal{#1}{}}{}{(#1)}}%
@@ -88,9 +89,11 @@
       \@students@pdf{}, #2}}%
   \hypersetup{pdfauthor={\@students@pdf}}%
   \ohead{\itshape \@students@value}}
+  
 \newcommand{\settitle}[2][\@sheettext] {%
   \hypersetup{pdftitle={#2},pdfsubject={#1}}%
   \chead{\large~\\\vskip-0.9em\textbf{#2}\\\vskip0.1em \textcolor{maincolor}{#1}}}
+
 \RequirePackage{lastpage}
 \ofoot{\raisebox{3pt}{\arabic{page}}{\LARGE/}\raisebox{-3pt}{\pageref*{LastPage}}}
 
@@ -112,9 +115,12 @@
 \newcommand{\headerrow}{\rowcolor{maincolor!50}}
 
 % set special behaviour for hyperlinks in pdfs
-\RequirePackage[breaklinks=true,
-                pdfborder=0,
-                ngerman]{hyperref}
+\RequirePackage{hyperref}
+\hypersetup{breaklinks=true,
+            pdfborder={0 0 0},
+            ngerman,
+            pdfhighlight={/N}}
+\RequirePackage[all]{hypcap}
 
 % german quotes
 \RequirePackage[babel,german=guillemets]{csquotes}
@@ -139,11 +145,19 @@
   numbers=left,%
   numberstyle=\footnotesize,%
   frame=lines,%
+  captionpos={b},% set caption pos to bottom
   backgroundcolor=\color{maincolor!10},%
   rulecolor=\color{maincolor!70},%
   framerule=1pt,%
   showstringspaces=false,%
   upquote=true}
+% german umlauts
+\lstset{
+  literate={ö}{{\"o}}1
+           {ä}{{\"a}}1
+           {ü}{{\"u}}1
+           {ß}{{\ss}}1
+}
 
 % nice tick
 \newcommand{\tick}{\checkmark}
