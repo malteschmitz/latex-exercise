@@ -1,0 +1,14 @@
+Installation des Packetes "uebungsblatt"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Damit TeX das Packet "uebungsblatt" findet muss
+
+1.) Die Datei "uebungsblatt.cls" am besten im Verzeichnis
+      "tex/latex/uebungsblatt"
+    liegen. Unter MikTeX und Windows also zum Beispiel im Verzeichnis
+      "C:\Programme\MikTeX\tex\latex\uebungsblatt".
+      
+2.) TeX angewiesen werden, seine Dateinamen-Datenbank zu aktualisieren.
+    Entweder mit der Anweisung "mktexlsr" oder unter MikTeX und Windows
+    zum Beispiel über Start - Programme - MikTeX Settings auf der
+    Registerkarte "Generals" über den Button "Refresh FNDB".
