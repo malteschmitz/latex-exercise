@@ -104,6 +104,8 @@
 
 % enable colors
 \RequirePackage[table]{xcolor}
+% define color of university of luebeck
+\xdefinecolor{uni-luebeck}{RGB}{0, 120, 140}
 \colorlet{maincolor}{orange}
 % enable cebra table colors
 \rowcolors{1}{maincolor!25}{maincolor!5}
@@ -111,7 +113,8 @@
 
 % set special behaviour for hyperlinks in pdfs
 \RequirePackage[breaklinks=true,
-                pdfborder=0]{hyperref}
+                pdfborder=0,
+                ngerman]{hyperref}
 
 % german quotes
 \RequirePackage[babel,german=guillemets]{csquotes}
