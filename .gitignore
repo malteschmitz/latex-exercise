@@ -1,0 +1,8 @@
+# LaTeX temp files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+# Generated PDF document
+exercise.pdf
