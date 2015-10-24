@@ -1,0 +1,187 @@
+\documentclass{exercise}
+
+\group{Universität zu Lübeck}
+\exercise{\texttt{exercise}-Klasse}{Anleitung}
+\students{Malte Schmitz \\
+          \href{http://malte.schmitz-sh.de}{malte.schmitz-sh.de}}
+
+\begin{document}
+  \task[Wohin mit \texttt{exercise.cls}?][Installation]
+    Zur Installation der \texttt{exercise}-Klasse muss die Datei \enquote{exercise.cls} von \LaTeX{} gefunden werden. Dazu muss
+    \begin{enumerate}[1)]
+      \item Die Datei \enquote{exercise.cls} am besten im Verzeichnis
+        \enquote{tex/latex/exercise}
+        liegen. Unter MikTeX und Windows also zum Beispiel im Verzeichnis
+        
+        \qquad\enquote{C:\textbackslash{}Programme\textbackslash{}MikTeX\textbackslash{}tex\textbackslash{}latex\textbackslash{}exercise}.
+      
+      \item \LaTeX{} angewiesen werden, seine Dateinamen-Datenbank zu aktualisieren.
+        Entweder mit der Anweisung \texttt{mktexlsr} oder unter MikTeX und Windows
+        zum Beispiel über \textsf{Start - Programme - MikTeX Settings} auf der
+        Registerkarte \textsf{Generals} über den Button \textsf{Refresh FNDB}.
+    \end{enumerate}
+    
+    Wer auf die \enquote{richtige Installation} keine Lust hat, kann die Klasse auch verwenden, indem sich die Datei \texttt{exercise.cls} im gleichen Verzeichnis wie das eigene \LaTeX{}-Dokument befindet.
+    
+  \task[Was der Autor alles angenommen hat][Vorraussetzungen]
+    Die Klasse setzt automatisch den Eingabe-Zeichensatz auf UTF-8, die Sprache auf Deutsch (neue deutsche Rechtschreibung) und den Font auf \texttt{lmodern}. Das hat den Vorteil, dass Du Dich um nichts mehr kümmern musst, und den Nachteil, dass Du das so annehmen musst. Insbesondere muss Dein Quellcode als UTF-8 gespeichert werden, oder keine Sonderzeichen enthalten.
+    
+    Die Klasse verwendet KOMA-Script \cite{koma} und setzt automatisch die Papiergröße auf A4, die Schriftgröße auf 10pt und die Absatzsteuerung auf einen halben Absatz ohne Einzug. Außerdem wird die Größe der Überschriften auf ein erträgliches Maß reduziert.
+    
+    Auch die Fußzeile besteht nur aus der Seitenzahl unten rechts etwas im Randbereich gesetzt und ist fest vorgegeben. Damit die Anzahl der Seiten stimmt, muss das Dokument zweimal kompiliert werden, damit \LaTeX{} die Seitenmarke \texttt{LastPage} korrekt gesetzt \emph{und} wieder eingelesen hat.
+    
+    Für den Satz von mathematischen Formeln wird die Umgebungen \texttt{amsmath} \cite{amsmath} eigentlich zwingend benötigt. Für verschiedene Symbole ist die Klasse \texttt{amssymb} sehr nützlich. Daher sind beide Pakete der American Mathematical Society bereits eingebunden. Zudem werden in mathematischen Umgebungen (\texttt{align}, \texttt{gather}, \ldots) alle Formeln automatisch linksbündig mit einem Einzug und ohne Nummerierung gesetzt. Die Nummerierung wird nur gesetzt, wenn auf die Formel bzw. die Zeile in der Formel referenziert wird. 
+    
+    Schließlich ist das Paket \texttt{xcolor} \cite{xcolor} eingebunden und kann überall verwendet werden, wo eine Farbangabe gebraucht wird.
+    
+  \task[Und wie benutze ich das jetzt?][Einbinden der Klasse]
+    Um die Klasse zu verwenden, muss das \LaTeX{}-Dokument mit der Zeile
+    \begin{verbatim}
+      \documentclass{exercise}
+    \end{verbatim} 
+    beginnen. An dieser Stelle können auch die weiteren Optionen der Klasse angegeben werden.
+    
+    In einer stillen Verneigung an die gute alte Zeit und vor allem die gute alte Schreibmaschine, neigen noch heute viele Menschen dazu, den 1.5-fachen für den einzig waren Zeilenabstand zu halten. Um diesem Umstand gerecht zu werden -- oder einfach um möglichst viele Seiten zu füllen -- kann die Klasse angeweisen werden, 1.5-fachen Zeilenabstand zu setzen, indem bei der Einbindung die Option \texttt{biglinespread} ergänzt wird.
+    \begin{verbatim}
+      \documentclass[biglinespread]{exercise}
+    \end{verbatim} 
+    
+  \task[Was der Übungsleiter alles auf dem Zettet haben will][Kopfzeile]
+    Die Informationen in der Kopfzeile können mit drei Befehlen an die jeweilige Übung angepasst werden.
+    \begin{itemize}
+      \item In der Mitte der Kopfzeile befindet sich der Name der Übung (auf dieser Seite \enquote{\texttt{exercise}-Klasse}) und darunter die aktuelle Übung (z.\,B. \enquote{Zettel 42}) oder ein aderer Untertitel (auf dieser Seite \enquote{Anleitung}). Diese Informationen müssen der Klasse im Kopf deines Quellcodes (also noch vor \verb-\begin{document}-) mitgeteilt werden durch den Befehl
+        \begin{verbatim}
+          \exercise{<title>}{<subtitle>}  
+        \end{verbatim}
+        
+      \item Rechts oben in der Kopfzeile kann eine zusätzliche Information angegeben werden. Zum Beispiel die Namen der Studenten, die das Übungsblatt bearbeitet haben. Daher lautet der Befehl
+      \begin{verbatim}
+        \students{<info>} 
+      \end{verbatim}
+      Mehrere Studenten mit Matrikelnummer können angegeben werden durch
+      \begin{verbatim}
+        \students{Student A (123456)\\
+                  Student B (123456)}
+      \end{verbatim}
+        
+      \item Links in der Kopfzeile kann eine zusätzliche Information von geringerer Bedeutung angegeben werden. Zum Beispiel die Übungsgruppe. Entsprechend schnell ist auch dieser Befehl erraten
+        \begin{verbatim}
+          \group{<info>}
+        \end{verbatim}
+    \end{itemize}
+    
+  \task[Überschriften vollautomatisch -- naja fast][Aufgaben]
+    Überschriften können in dieser Klasse ganz normal durch \texttt{section}, \texttt{subsection}, \ldots gesetzt werden. Allerdings ist die Nummerierung ausgeschaltet, da die Überschrift normalerweise die Nummer der Aufgabe enthalten soll und eine doppelte Nummerierung der Form \enquote{1. Aufgabe 1} ist nicht sonderlich elegant. Da die meisten Übungszettel mit Aufgabe 1 beginnen und anschließend fortlaufend durchnummeriert sind, wurde wieder eine automatische Nummerierung eingeführt. Durch den Befehl \verb-\task- wird eine Überschrift \enquote{Aufgabe} inklusive Nummer automatisch gesetzt.
+    
+    Allerdings ist die eigentliche Funktion einer Überschrift, dass man sich in einem Dokuemnt zurechtfindet. Durch eine reine Nummerierung der Form \enquote{Aufgabe 1} bis \enquote{Aufgabe 42} ist das allerdings noch nicht direkt gewährleistet. Daher kann der Überschrift eine Ergänzung hinzugefügt werden, die etwas weniger stärkt und mit einem leichten Abstand neben die eigentliche Überschrift gesetzt wird.
+    \begin{verbatim}
+      \task[<Untertitel>]
+    \end{verbatim}
+
+    Soll die Zählung der Aufgaben nicht bei 1 beginnen, kann der Zähler \texttt{task} manuell auf den Wert der \emph{vorherigen} Aufgabe gesetzt werden. Soll die Nummerierung also mit 6 beginnen, muss der Zähler auf 5 gesetzt werden, da jeweils \emph{vor} der Ausgabe der Überschrift der Zähler inkrementiert wird.
+    \begin{verbatim}
+      \setcounter{task}{12}
+    \end{verbatim}
+
+    Versagt die automatische Zählung komplett, da die Aufgaben nicht nummeriert sind, oder aus anderen Gründen eine eigene Überschrift gesetzt werden soll, kann der Titel und der Untertitel manuell angegeben werden. Dabei ist die Reihenfolge der Optionen zu beachten!
+    \begin{verbatim}
+       \task[<Untertitel>][<Titel>]
+    \end{verbatim}
+  
+  \task[Und wenn meine Aufgabe mehr Teile hat?][Listen]
+    Um möglichst elegant einzelne Teilaufgaben markieren zu können, wird das Paket \texttt{paralist} \cite{paralist} eingebunden. Diese Paket löst zwei wesentliche Probleme der klassischen \LaTeX{}-Listen. Zum einen können damit die Arten der Nummerierung elegant gewechselt werden, und zum zweiten gibt es zusätzliche Umgebungen für Listen ohne vertikalen Abstand. Enthalten alle Listenpunkte nur eine Zeile Text, sieht der große Abstand zwischen den Listenpunkten meist etwas übertrieben aus. Hier können die Umgebungen \texttt{compactenum} und \texttt{compactitem} verwendet werden.
+    
+    Zum Gliedern von Unteraufgaben eignet sich meist die normale \texttt{enumerate}-Umgebung schon sehr gut. In der Regel entspricht die automatische Nummerierung aber nicht dem Aufgabenblatt. Die Nummerierung kann entweder als Option für genau eine Liste geändert werden oder durch die Befehle \verb-\setdefaultitem{}{}{}{}- und \verb-\setdefaultenum{}{}{}{}-. Beiden Befehlen werden jeweils die Werte für Listen erster bis vierter Ordnung übergeben. Wird ein Parameter leer gelassen, bleibt der Standard erhalten. Für ungeordnete Listen kann eine beliebige Zeichenfolge übergeben werden, die exakt in der Form als Listenpunkt verwendet wird. Für Aufzählungen werden die Buchstaben \texttt{i}, \texttt{I}, \texttt{a}, \texttt{A} und \texttt{1} durch die Nummer im entsprechenden Format ersetzt. Soll ein solches Zeichen nicht ersetzt werden, muss es in geschweifte Klammern eingeschlossen werden. So kann zum Beispiel die Art der Nummerierung für Listen erster Ordnung geäbdert werden durch
+    \begin{verbatim}
+      \setdefaultenum{{Teil} I}{}{}{}  
+    \end{verbatim}
+    Der linke Abstand der Liste passt sich automatisch an. Soll die Nummerierung nur für eine Liste geändert werden, reicht eine Option aus.
+    \begin{verbatim}
+      \begin{enumerate}[a)]
+        \item <Teil a>
+        \item <Teil b>
+        \item <Teil c>
+      \end{enumerate}
+    \end{verbatim}
+    Der linke Abstand passt sich ebenfalls automatisch an. Im Zweifelsfall funktioniert obiger Befehl aber zuverlässiger.
+
+  \task[Wie sieht sowas denn jetzt aus][vollständiges Beispiel]
+    \begin{verbatim}
+      \documentclass{exercise}
+      
+      \group{Gruppe 4}
+      \exercise{Analysis I}{Übung 23}
+      \students{Malte Schmitz (123456) \\ Max Muster (789012)}
+      
+      \begin{document}
+        \task
+          \begin{enumerate}[a)]
+            \item Hier kommt die Bearbeitung der erste Aufgabe.
+            
+              Noch ein Absatz.
+              
+            \item Zweiter Teil der ersten Aufgaben.
+            
+              Noch ein Absatz
+          \end{enumerate}
+        
+        \task
+          Hier kommt die Bearbeitung der zweiten Aufgabe.
+          
+          Noch ein Absatz.
+      \end{document}
+    \end{verbatim}
+
+  \task[w.\,z.\,b.\,w. -- was zu bezweifeln wäre][Beweis]
+    Für den Satz von Beweisen wird gerne die \texttt{proof}-Umgebung aus dem \texttt{amsthm}-Paket \cite{amsthm} empfohlen. Soll diese verwendet werden, muss das Paket explizit geladen werden und überschreibt dann die \texttt{proof}-Umgebung dieser Klasse. Da auf den meisten Übungsblättern nur die Umgebung für Beweis benötigt wird und die weiteren Funktionen der Theorem-Klasse nicht gebraucht werden, stellt diese Klasse eine eigenen Beweis-Umgebung zur Verfügung.
+    
+    Da dem Autor dieser Klasse die optische Kennzeichnung von Beweisen nicht zusagte, sind Beweise in dieser Klasse etwas deutlicher hervorgehoben. Wie das Original schreibt die Umgebung vor den Beweis das Wort \enquote{Beweis} und beendet den Beweis automatisch mit dem Kasten-Symbol.
+    \begin{verbatim}
+      <Satz>
+      \begin{proof}
+        <Beweis>
+      \end{proof}
+    \end{verbatim}
+  Soll nur der Kasten unter einen Text gesetzt werden, ohne die Beweis-Umgebung zu verwenden, kann der Befehl \verb-\qed- verwendet werden. Der Kasten wird automatisch nach rechts geschoben.
+    
+  \task[deutsche Gänsefüßchen haben es schwer][Anführungszeichen]
+    Da die Verwendung korrekter Anfürhungszeichen in \LaTeX{} immer etwas trickreich ist, wird das Paket \texttt{csquotes} \cite{csquotes} eingebunden und die Form der Anführungszeichen auf die deutschen Guillemets gesetzt. Auf diese Weise können Wörter oder ganze Sätze durch einen einfachen Befehl in Anführungszeichen gesetzt werden, ohne dass der Autor sich um die korrekte Verwendung kümmern muss.
+    \begin{verbatim}
+      \enquote{<Text>}
+    \end{verbatim}
+    
+  \task[kleine Tricks vereinfachen das Leben][weitere Befehle]
+    Der Befehl \verb-\tick- setzt einen Haken \tick.
+    
+    Die Befehle \verb-\R-, \verb-\N-, \verb-\Z-, \verb-\K-, \verb-\Q- setzen in der Mathe-Umgebung die Zahlenräume bzw. Körper $\R, \N, \Z, \K, \Q$.
+    
+    Der Befehl \verb-\blitz- kann verwendet werden, um einen Widerspruch anzuzeigen. \blitz
+    
+    \inhead{kleine Überschrift} Der Befehl \verb-\inhead- kann ähnlich dem Befehl \verb-\paragraph- verwendet werden, um einem Absatz eine Überschrift zu geben. Anders als \texttt{paragraph} führt \texttt{inhead} aber keine weitere interne \LaTeX{}-Magie aus, sodass er an jeder Stelle verwendet werden kann und die Überschrift nicht in Verzeichnisse aufgenommen wird.
+    
+  \begin{thebibliography}{22}
+    \bibitem{koma} Frank Neukam, Markus Kohm und Axel Kielhorn: \\
+    \emph{KOMA-Script}, 20. Januar 2009. \\
+    \href{http://mirror.ctan.org/macros/latex/contrib/koma-script/}{CTAN://macros/latex/contrib/koma-script/}.
+  
+    \bibitem{amsmath} American Mathematical Society: \\
+    \emph{User's Guide for the amsmath Package}, 25. Februar 2002. \\
+    \href{http://mirror.ctan.org/macros/latex/required/amslatex/math/}{CTAN://macros/latex/required/amslatex/math/}.
+  
+    \bibitem{amsthm} American Mathematical Society: \\
+    \emph{Using the amsthm Package}, August 2004. \\
+    \href{http://mirror.ctan.org/macros/latex/required/amslatex/classes/}{CTAN://macros/latex/required/amslatex/classes/}
+  
+    \bibitem{xcolor} Dr. Uwe Kern: \\
+    \emph{Extending \LaTeX's color facilities: the xcolor package}, 21. Januar 2007. \\
+    \href{http://mirror.ctan.org/macros/latex/contrib/xcolor/}{CTAN://macros/latex/contrib/xcolor/}.
+    
+    \bibitem{paralist} Bernd Schandl: \\
+    \emph{paralist, Extended List Environments}, 9. Mai 2005. \\
+    \href{http://mirror.ctan.org/macros/latex/contrib/paralist/}{CTAN://macros/latex/contrib/paralist/}.
+    
+    \bibitem{csquotes} Philipp Lehmann: \\
+    \emph{The csquotes package}, 23. September 2009. \\
+    \href{http://mirror.ctan.org/macros/latex/contrib/csquotes/}{CTAN://macros/latex/contrib/csquotes/}.
+  \end{thebibliography}  
+\end{document}
