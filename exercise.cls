@@ -113,9 +113,12 @@
 % define color of university of luebeck
 \xdefinecolor{uni-luebeck}{RGB}{0, 120, 140}
 \colorlet{maincolor}{orange}
-% enable cebra table colors
-\rowcolors{1}{maincolor!25}{maincolor!5}
-\newcommand{\headerrow}{\rowcolor{maincolor!50}}
+
+% zebra tables
+\newcommand{\mainrowcolors}{\rowcolors{1}{maincolor!25}{maincolor!5}}
+\newenvironment{zebratabular}{\mainrowcolors\begin{tabular}}{\end{tabular}}
+\newcommand{\setrownumber}[1]{\global\rownum#1\relax}
+\newcommand{\headerrow}{\rowcolor{maincolor!50}\setrownumber1}
 
 % set special behaviour for hyperlinks in pdfs
 \RequirePackage{hyperref}
@@ -136,8 +139,6 @@
 \mathtoolsset{showonlyrefs} % only show number on referenced formula
 % float left of formulas
 \@fleqntrue\let\mathindent\@mathmargin \@mathmargin=\leftmargini
-% place vectors in bold
-\renewcommand{\vec}[1]{\boldsymbol{#1}}
 
 % listings
 \RequirePackage{listings}
@@ -166,11 +167,14 @@
 \newcommand{\tick}{\checkmark}
 
 % often used sets
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\set}[1]{\mathbb{#1}}
+\newcommand{\R}{\set{R}}
+\newcommand{\N}{\set{N}}
+\newcommand{\Z}{\set{Z}}
+\newcommand{\Q}{\set{Q}}
+
+% custom operators
+\newcommand{\op}[1]{\operatorname{#1}}
 
 % nice blitz symbol
 \RequirePackage{ulsy}
@@ -182,6 +186,9 @@
 
 % nice transposed symbol
 \newcommand{\trans}[1]{{#1}^\text{T}}
+
+% nice z.z. symbol
+\newcommand{\zz}{\mathrm{Z\kern-.3em\raise-0.5ex\hbox{Z}}}
 
 % better list envorinment
 \RequirePackage{paralist}
@@ -203,7 +210,33 @@
   \setvarenum\begin{enumerate}}{\end{enumerate}}
 \newenvironment{varcompactenum}{%
   \setvarenum\begin{compactenum}}{\end{compactenum}}
+  
+% redefine existing list environments to color every item in the maincolor
+\newcommand{\ifempty}[3]{\ifthenelse{\equal{#1}{}}{#2}{#3}}
+\newcommand{\@oldenumerate}{}
+\newcommand{\@olditemize}{}
+\let\@oldenumerate\enumerate
+\let\@olditemize\itemize
+\let\@oldcompactenum\compactenum
+\let\@oldcompactitem\compactitem
+\renewcommand{\enumerate}[1][]{\ifempty{#1}{\@oldenumerate}{\@oldenumerate[\color{maincolor}#1]}}
+\renewcommand{\itemize}[1][]{\ifempty{#1}{\@olditemize}{\@olditemize[\color{maincolor}#1]}}
+\renewcommand{\compactenum}[1][]{\ifempty{#1}{\@oldcompactenum}{\@oldcompactenum[\color{maincolor}#1]}}
+\renewcommand{\compactitem}[1][]{\ifempty{#1}{\@oldcompactitem}{\@oldcompactitem[\color{maincolor}#1]}}
 
+% funny lists using dingbats
+\RequirePackage{pifont}
+\newenvironment{dingitem}[2][pzd]{\begin{itemize}[\Pisymbol{#1}{#2}]}{\end{itemize}}
+\newenvironment{compactdingitem}[2][pzd]{\begin{compactitem}[\Pisymbol{#1}{#2}]}{\end{compactitem}}
+% enumerations
+\newcounter{@dingenumindex}
+\newcommand{\@dingenumitem}{\stepcounter{@dingenumindex}\color{maincolor}\Pisymbol{pzd}{\value{@dingenumindex}}}
+\newenvironment{dingenum}[2][pzd]{\setcounter{@dingenumindex}{#2}\addtocounter{@dingenumindex}{-2}\@olditemize[\@dingenumitem]}{\enditemize}
+\newcounter{@compactdingenumindex}
+\newcommand{\@compactdingenumitem}[1]{\stepcounter{@compactdingenumindex}\color{maincolor}\Pisymbol{#1}{\value{@compactdingenumindex}}}
+\newenvironment{compactdingenum}[2][pzd]{\setcounter{@compactdingenumindex}{#2}\addtocounter{@compactdingenumindex}{-2}\@oldcompactitem[\@compactdingenumitem{#1}]}{\endcompactitem}
+
+% paragraph without latex magic
 \newcommand{\inhead}[1]{\begin{sffamily}\bfseries #1 \end{sffamily}}
 
 % special proof environment
@@ -259,6 +292,21 @@
     \renewcommand{\sheetname}{Exercise Sheet}
     \renewcommand{\proofname}{Proof}
     \renewcommand{\claimname}{Claim}
+  \fi
+}
+% place vectors in bold
+\let\oldvec\vec
+\let\vec\boldsymbol
+\define@choicekey*{\@familyname.\@currname.\@currext}{vec}[\val\nr]{arrow,bold,underline}{%
+  \ifcase\nr\relax
+    % arrow
+    \let\vec\oldvec
+  \or
+    % bold
+    \let\vec\boldsymbol
+  \or
+    % underline
+    \let\vec\underline
   \fi
 }
 \FamilyProcessOptions{\@familyname}
