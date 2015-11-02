@@ -4,5 +4,7 @@
 *.fls
 *.log
 *.out
+*.synctex.gz
 # Generated PDF document
 exercise.pdf
+example.pdf

@@ -343,35 +343,9 @@
     In \autoref{table-ding} findet sich eine Übersicht aller Symbole aus der
     Zapf Dingbats.
 
-  \task[Wie sieht sowas denn jetzt aus][vollständiges Beispiel]
-    \begin{lstlisting}[gobble=6]
-      \documentclass[sheet=3, task=6, prefix, biglineskip]{exercise}
-      
-      \setgroup{Gruppe 4}
-      \settitle{Analysis I}
-      \addstudent[123456]{Malte Schmitz}
-      \addstudent[789012]{Max Muster}
-      
-      \begin{document}
-        \task[ein Beispiel]
-          \begin{enumerate}
-            \item Hier kommt die Bearbeitung der erste Aufgabe.
-            
-              Noch ein Absatz.
-              
-            \item Zweiter Teil der ersten Aufgaben.
-            
-              Noch ein Absatz
-          \end{enumerate}
-        
-        \task[ein mathematisches Beispiel]
-          Hier kommt die Bearbeitung der zweiten Aufgabe.
-          
-          [a^2+b^2=c^2]
-          
-          Noch ein Absatz.
-      \end{document}
-    \end{lstlisting}
+  \task[Wie sieht sowas denn jetzt aus?][vollständiges Beispiel]
+    \texttt{example.tex}
+    \lstinputlisting{example.tex}
 
   \task[w.\,z.\,b.\,w. -- was zu bezweifeln wäre][Beweis]
     Für den Satz von Beweisen wird gerne die \lstinline{proof}-Umgebung aus dem \texttt{amsthm}-Paket \cite{amsthm} empfohlen. Soll diese verwendet werden, muss das Paket explizit geladen werden und überschreibt dann die \lstinline{proof}-Umgebung dieser Klasse. Da auf den meisten Übungsblättern nur die Umgebung für Beweis benötigt wird und die weiteren Funktionen der Theorem-Klasse nicht gebraucht werden, stellt diese Klasse eine eigenen Beweis-Umgebung zur Verfügung.
