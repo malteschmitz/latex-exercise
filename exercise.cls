@@ -177,8 +177,8 @@
 \newcommand{\op}[1]{\operatorname{#1}}
 
 % nice blitz symbol
-\RequirePackage{ulsy}
-\newcommand{\blitz}{\quad\text{\blitze}}
+\RequirePackage{stmaryrd}
+\newcommand{\blitz}{\quad\ensuremath{\lightning}}
 
 % nice dx symbol
 \newcommand{\dx}[1][x]{\,\mathrm{d}#1}
