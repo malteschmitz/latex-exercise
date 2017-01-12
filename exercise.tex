@@ -67,10 +67,12 @@
     einen halben Absatz ohne Einzug. Außerdem wird die Größe der Überschriften
     auf ein erträgliches Maß reduziert.
 
-    Auch die Fußzeile besteht nur aus der Seitenzahl unten rechts etwas im
-    Randbereich gesetzt und ist fest vorgegeben. Damit die Anzahl der Seiten
-    stimmt, muss das Dokument zweimal kompiliert werden, damit \LaTeX{} die
-    Seitenmarke \texttt{LastPage} korrekt gesetzt \emph{und} wieder eingelesen hat.
+    Auch die Fußzeile ist fest vorgegeben. Sie wird unten rechts im Randbereich
+    gesetzt und besteht nur aus der aktuellen gefolgt von der Gesamt-Seitenzahl.
+    Die Fußzeile wird nur gesetzt, wenn das Dokument mehr als eine Seite hat.
+    Damit \LaTeX{} die Gesamt-Seitenzahl kennt, muss das Dokument zweimal
+    kompiliert werden. Nach dem ersten Durchlauf wird immer die aktuelle Seitenzahl
+    in der Fußzeile ausgegeben.
 
     Für den Satz von mathematischen Formeln wird die Umgebungen \texttt{amsmath}
     \cite{amsmath} eigentlich zwingend benötigt. Für verschiedene Symbole ist

@@ -94,8 +94,18 @@
   \hypersetup{pdftitle={#2},pdfsubject={#1}}%
   \chead{\large~\\\vskip-0.9em\textbf{#2}\\\vskip0.1em \textcolor{maincolor}{#1}}}
 
-\RequirePackage{lastpage}
-\ofoot{\raisebox{3pt}{\arabic{page}}{\LARGE/}\raisebox{-3pt}{\pageref*{LastPage}}}
+\RequirePackage{zref-totpages}
+\ofoot{%
+  \ifnum\ztotpages>1% We know the total number of pages and it is more than one --> page numbers! 
+    \raisebox{3pt}{\arabic{page}}{\LARGE/}\raisebox{-3pt}{\ztotpages}%
+  \else%
+    \ifnum\ztotpages=1% There is only one page in total --> no page numbers!
+      %
+    \else% 
+      \arabic{page}% We do not know the total number of pages yet --> recompile needed
+    \fi%
+  \fi%
+}
 
 % layout of head and foot
 \setheadtopline{1pt}
