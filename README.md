@@ -8,5 +8,5 @@ Es handelt sich _nicht_ um eine offizielle Vorlage. Ob diese Vorlage eventuell v
 
 Siehe [mlte.de/latex](http://www.mlte.de/latex) für weitere Informationen über LaTeX.
 
-[1]: http://www.mlte.de/files/latex/exercise.pdf
-[2]: http://www.mlte.de/files/latex/exercise-example.pdf
+[1]: https://www.mlte.de/downloads/exercise.pdf
+[2]: https://www.mlte.de/downloads/exercise-example.pdf
