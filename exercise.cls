@@ -27,6 +27,7 @@
 
 % set type area
 \RequirePackage[paper=a4paper,
+                head=30.50029pt,
                 left=2.5cm,
                 right=4cm,
                 top=4cm,
