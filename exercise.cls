@@ -278,14 +278,20 @@
 \newcommand{\@familyname}{Uni}
 \DefineFamily{\@familyname} % define new family
 \DefineFamilyMember{\@familyname} % register this class as a family member
+
 \FamilyBoolKey{\@familyname}{biglinespread}{@biglinespread}
+\FamilyBoolKey{\@familyname}{sheetBigAlph}{@sheetBigAlph}
+\FamilyBoolKey{\@familyname}{sheetAlph}{@sheetAlph}
+\FamilyBoolKey{\@familyname}{prefix}{@prefix}
+
 \DefineFamilyKey{\@familyname}{sheet}{%
   \setcounter{sheet}{#1}%
   \renewcommand{\@sheettext}{\sheetname{} \thesheet}}
+
 \DefineFamilyKey{\@familyname}{task}{%
   \setcounter{task}{#1}%
   \addtocounter{task}{-1}}
-\FamilyBoolKey{\@familyname}{prefix}{@prefix}
+
 \DefineFamilyKey{\@familyname}{maincolor}{%
   \colorlet{maincolor}{#1}
 }
@@ -328,6 +334,16 @@
   \linespread{1.25}%
 \else
   \linespread{1}%
+\fi
+
+% make sheet number alph?
+\if@sheetAlph
+  \renewcommand{\thesheet}{\alph{sheet}}
+\fi
+
+% make sheet number big alph?
+\if@sheetBigAlph
+  \renewcommand{\thesheet}{\Alph{sheet}}
 \fi
 
 % add sheet to task counter?
