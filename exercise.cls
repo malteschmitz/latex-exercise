@@ -89,7 +89,9 @@
       \@students@pdf{}, #2}}%
   \hypersetup{pdfauthor={\@students@pdf}}%
   \ohead{\itshape \@students@value}}
-  
+
+\newcommand{\setname}[1]{\renewcommand{\sheetname}{#1}}
+
 \newcommand{\settitle}[2][\@sheettext] {%
   \hypersetup{pdftitle={#2},pdfsubject={#1}}%
   \chead{\large~\\\vskip-0.9em\textbf{#2}\\\vskip0.1em \textcolor{maincolor}{#1}}}
