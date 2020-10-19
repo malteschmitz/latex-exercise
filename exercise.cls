@@ -30,14 +30,14 @@
                 left=2.5cm,
                 right=4cm,
                 top=4cm,
-                marginparsep=1cm,
-                marginparwidth=3cm,
+                marginparsep=0.5cm,
+                marginparwidth=1.5cm,
                 bottom=2cm,
-                headsep=1.5cm,
+                headsep=1cm,
                 footskip=1cm]{geometry}
 
 % headings witout numbers
-\RequirePackage{scrpage2}
+\RequirePackage{scrlayer-scrpage}
 \KOMAoption{headings}{normal}
 \setcounter{secnumdepth}{0}
 
