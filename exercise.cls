@@ -189,6 +189,7 @@
 
 % nice blitz symbol
 \RequirePackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
 \newcommand{\blitz}{\quad\ensuremath{\lightning}}
 
 % nice dx symbol
