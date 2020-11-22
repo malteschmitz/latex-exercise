@@ -36,6 +36,7 @@
                 headsep=1cm,
                 head=1.1cm,
                 footskip=1cm]{geometry}
+\setlength{\footheight}{0.7cm}
 
 % headings witout numbers
 \RequirePackage{scrlayer-scrpage}
