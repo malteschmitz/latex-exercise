@@ -34,6 +34,7 @@
                 marginparwidth=1.5cm,
                 bottom=2cm,
                 headsep=1cm,
+                head=1.1cm,
                 footskip=1cm]{geometry}
 
 % headings witout numbers
