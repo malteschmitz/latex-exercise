@@ -108,8 +108,8 @@
 }
 
 % layout of head and foot
-\setheadtopline{1pt}
-\setheadsepline{0.2pt}
+\KOMAoption{headtopline}{1pt}
+\KOMAoption{headsepline}{0.2pt}
 \setfootwidth{textwithmarginpar}
 \setkomafont{pageheadfoot}{\small\sffamily}
 \setkomafont{pagefoot}{\large\sffamily}
