@@ -1,0 +1,16 @@
+name: TeX Live
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:20.10 latexmk -pdf exercise
+      - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:20.10 latexmk -pdf exercise-example
+      - uses: actions/upload-artifact@v2
+        with:
+          path: |
+            exercise.pdf
+            exercise-example.pdf
