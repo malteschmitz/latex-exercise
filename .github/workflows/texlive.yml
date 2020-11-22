@@ -9,8 +9,12 @@ jobs:
       - uses: actions/checkout@v2
       - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:20.10 latexmk -pdf exercise
       - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:20.10 latexmk -pdf exercise-example
-      - uses: actions/upload-artifact@v2
+      - run: |
+          mkdir build
+          mv exercise.pdf exercise-example.pdf build
+      - uses: crazy-max/ghaction-github-pages@v2
         with:
-          path: |
-            exercise.pdf
-            exercise-example.pdf
+          target_branch: gh-pages
+          build_dir: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
