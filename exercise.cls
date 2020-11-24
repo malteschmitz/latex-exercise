@@ -91,7 +91,9 @@
       \@students@pdf{}, #2}}%
   \hypersetup{pdfauthor={\@students@pdf}}%
   \ohead{\itshape \@students@value}}
-  
+
+\newcommand{\setname}[1]{\renewcommand{\sheetname}{#1}}
+
 \newcommand{\settitle}[2][\@sheettext] {%
   \hypersetup{pdftitle={#2},pdfsubject={#1}}%
   \chead{\large~\\\vskip-0.9em\textbf{#2}\\\vskip0.1em \textcolor{maincolor}{#1}}}
@@ -279,14 +281,20 @@
 \newcommand{\@familyname}{Uni}
 \DefineFamily{\@familyname} % define new family
 \DefineFamilyMember{\@familyname} % register this class as a family member
+
 \FamilyBoolKey{\@familyname}{biglinespread}{@biglinespread}
+\FamilyBoolKey{\@familyname}{sheetBigAlph}{@sheetBigAlph}
+\FamilyBoolKey{\@familyname}{sheetAlph}{@sheetAlph}
+\FamilyBoolKey{\@familyname}{prefix}{@prefix}
+
 \DefineFamilyKey{\@familyname}{sheet}{%
   \setcounter{sheet}{#1}%
   \renewcommand{\@sheettext}{\sheetname{} \thesheet}}
+
 \DefineFamilyKey{\@familyname}{task}{%
   \setcounter{task}{#1}%
   \addtocounter{task}{-1}}
-\FamilyBoolKey{\@familyname}{prefix}{@prefix}
+
 \DefineFamilyKey{\@familyname}{maincolor}{%
   \colorlet{maincolor}{#1}
 }
@@ -329,6 +337,16 @@
   \linespread{1.25}%
 \else
   \linespread{1}%
+\fi
+
+% make sheet number alph?
+\if@sheetAlph
+  \renewcommand{\thesheet}{\alph{sheet}}
+\fi
+
+% make sheet number big alph?
+\if@sheetBigAlph
+  \renewcommand{\thesheet}{\Alph{sheet}}
 \fi
 
 % add sheet to task counter?
