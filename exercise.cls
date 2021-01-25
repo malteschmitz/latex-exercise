@@ -178,6 +178,11 @@
 % nice tick
 \newcommand{\tick}{\checkmark}
 
+% optional checkmark and x mark
+\RequirePackage{pifont}
+\providecommand{\cmark}{\ding{51}}
+\providecommand{\xmark}{\ding{55}}
+
 % often used sets
 \newcommand{\set}[1]{\mathbb{#1}}
 \newcommand{\R}{\set{R}}
