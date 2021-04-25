@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:20.10 latexmk -pdf exercise
-      - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:20.10 latexmk -pdf exercise-example
-      - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:20.10 latexmk -pdf chapter-example
+      - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:21.04 latexmk -pdf exercise
+      - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:21.04 latexmk -pdf exercise-example
+      - run: docker run -v $(pwd):/wd -w /wd --rm malteschmitz/texlive:21.04 latexmk -pdf chapter-example
       - run: |
           mkdir build
           mv exercise.pdf exercise-example.pdf chapter-example.pdf build
