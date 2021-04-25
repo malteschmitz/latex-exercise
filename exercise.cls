@@ -4,11 +4,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{exercise}
 
+% load xkeyval before loading KOMA to make sure
+% KOMA uses xkeyval instead if keyval
+\RequirePackage{xkeyval}
+
+% KOMA-Script class for article
+\LoadClass{scrartcl}
+
 % input encoding
 \RequirePackage[utf8]{inputenc}
-
-% new german spelling
-\RequirePackage[english,ngerman]{babel}
 
 % choose font
 \RequirePackage[T1]{fontenc}
@@ -16,12 +20,12 @@
 \RequirePackage{textcomp}
 \RequirePackage{courier}
 
-% load xkeyval before loading KOMA to make shure
-% KOMA uses xkeyval instead if keyval
-\RequirePackage{xkeyval}
+% Make sure to load babel after xkeyval for
+% FamilyProcessOptions to work properly.
+% enable new german spelling by default
+\RequirePackage[english,ngerman]{babel}
 
-% KOMA-Script class for article
-\LoadClass{scrartcl}
+% set basic KOMA-Script options
 \KOMAoption{fontsize}{10pt}
 \KOMAoption{parskip}{half}
 
