@@ -1,8 +1,5 @@
-% special LaTeX class for exercises
-% Malte Schmitz - Januar 2010
-
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{exercise}
+\ProvidesClass{exercise}[2021/04/25 Document Class for Exercises]
 
 % load xkeyval before loading KOMA to make sure
 % KOMA uses xkeyval instead if keyval
@@ -20,6 +17,10 @@
 \setcounter{task}{0}
 \newcounter{sheet}
 \setcounter{sheet}{0}
+\newcounter{chapter}
+\setcounter{chapter}{0}
+\newif\if@usechapter
+\@usechapterfalse
 
 % declare variables
 \newcommand{\@sheettext}{}
@@ -54,6 +55,10 @@
 \DefineFamilyKey{\@familyname}{task}{%
   \setcounter{task}{#1}%
   \addtocounter{task}{-1}}
+
+\DefineFamilyKey{\@familyname}{chapter}{%
+  \setcounter{chapter}{#1}%
+  \@usechaptertrue}
 
 \FamilyBoolKey{\@familyname}{prefix}{@prefix}
 
@@ -135,7 +140,19 @@
 % special task header
 \RequirePackage{ifthen}
 \RequirePackage{twoopt}
-\renewcommand{\thetask}{\arabic{task}}
+\if@prefix
+  \if@usechapter
+    \renewcommand{\thetask}{\thesheet.\arabic{chapter}.\arabic{task}}
+  \else
+    \renewcommand{\thetask}{\thesheet.\arabic{task}}
+  \fi
+\else
+  \if@usechapter
+    \renewcommand{\thetask}{\arabic{chapter}.\arabic{task}}
+  \else
+    \renewcommand{\thetask}{\arabic{task}}
+  \fi
+\fi
 \renewcommand{\thesheet}{\arabic{sheet}}
 \providecommand{\taskcommand}{section}
 \newcommand{\invoketaskcommand}{\csname\taskcommand\endcsname}
@@ -155,6 +172,28 @@
     }%
   }%
 }
+
+\providecommand{\nextchapter}{%
+  \stepcounter{chapter}%
+  \setcounter{task}{0}%
+}
+
+\providecommand{\setchapter}[1]{%
+  \setcounter{chapter}{#1}%
+  \setcounter{task}{0}%
+}
+
+\providecommand{\settask}[1]{%
+  \setcounter{task}{#1}%
+  \addtocounter{task}{-1}%
+}
+
+% 1.5 times line spreading?
+\if@biglinespread
+  \linespread{1.25}%
+\else
+  \linespread{1}%
+\fi
 
 % content of head and foot
 \pagestyle{scrheadings}
@@ -345,15 +384,3 @@
         \itshape
     \claimname\quad]\ignorespaces
 }{\endtrivlist}
-
-% 1.5 times line spreading?
-\if@biglinespread
-  \linespread{1.25}%
-\else
-  \linespread{1}%
-\fi
-
-% add sheet to task counter?
-\if@prefix
-  \renewcommand{\thetask}{\thesheet.\arabic{task}}
-\fi
