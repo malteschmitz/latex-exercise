@@ -1,9 +1,8 @@
 \documentclass{exercise}
 
-\setgroup{Universität zu Lübeck}
+\setgroup{\href{http://www.mlte.de/latex}{www.mlte.de/latex}}
 \settitle[Anleitung]{\texttt{exercise}-Klasse}
 \addstudent{Malte Schmitz}
-\addstudent{\href{http://www.mlte.de/latex}{www.mlte.de/latex}}
 
 \lstset{numbers=none,
         language=[latex]tex,
@@ -392,13 +391,12 @@
       \documentclass[maincolor=purple]{exercise}
     \end{lstlisting}
 
-    Im Dokument kann \lstinline{maincolor} als normale Farbe verwendet werden. Das hat den Vorteil, dass sich auch durch eigenen Farbspielereien an den aktuellen Farbstil anpassen. Natürlich lässt sich der ganze Farbenspuk durch setzen von \lstinline{maincolor=black} auch ganz abschalten.
+    Im Dokument kann \lstinline{maincolor} als normale Farbe verwendet werden. Das hat den Vorteil, dass sich auch die eigenen Farbspielereien an den aktuellen Farbstil anpassen. Natürlich lässt sich der ganze Farbenspuk durch Setzen von \lstinline{maincolor=black} auch ganz abschalten.
 
-    Für Studenten der Universität zu Lübeck kann durch
+    Darüber hinaus ist die Farbe der Uni Lübeck als \lstinline{uni-luebeck} definiert. Diese kann auch als Standardfarbe verwendet werden:
     \begin{lstlisting}[gobble=6]
       \documentclass[maincolor=uni-luebeck]{exercise}
     \end{lstlisting}
-    die Farbe für alle Fälle auf die offizielle Farbe der Universität gesetzt werden. Bezüglich der Tauglichkeit dieser Farbe oder gar dem neuen Logo der Uni überlasse ich an dieser Stelle das Urteil dem geneigten Leser.
 
   \task[deutsche Gänsefüßchen haben es schwer][Anführungszeichen]
     Da die Verwendung korrekter Anfürhungszeichen in \LaTeX{} immer etwas trickreich ist, wird das Paket \texttt{csquotes} \cite{csquotes} eingebunden und die Form der Anführungszeichen auf die deutschen Guillemets gesetzt. Auf diese Weise können Wörter oder ganze Sätze durch einen einfachen Befehl in Anführungszeichen gesetzt werden, ohne dass der Autor sich um die korrekte Verwendung kümmern muss.
@@ -408,8 +406,8 @@
 
     Da der Autor dieser Klasse die deutschen Guillemets den klassischen deutschen Gänsefüßchen vorzieht, werden diese von \lstinline-\enquote- gesetzt. Werden in besonderen Fällen klassische Anführungszeichen benötigt, können diese am einfachsten mit den Befehlen \lstinline-\glqq- (\glqq), \lstinline-\glq- (\glq), \lstinline-\grq- (\grq) und \lstinline-\grqq- (\grqq) gesetzt werden.
 
-  \task[Wir können auch fremdländisch][Sprachunterstützung]
-    Die \texttt{exercise}-Klasse hat eine eingebaute Sprachunterstützung, die es bisher erlaubt, die Klasse auf englisch umzuschalten. Die Sprachoption wird an das \texttt{babel}-Paket \cite{babel} weitergereicht, was viele \LaTeX{}-Standard-Texte übersetzt und die typografischen Konventionen auf englisch umschaltet. Weiterhin werden die Texte der \texttt{exercise}-Klasse (Aufgabe, Übungszettel, Beweis, Behauptung) auf Englisch gesetzt. Um die Sprache auf Englisch umzuschalten muss die Klasse mit der Option \lstinline{language} geladen werden.
+  \task[Wir können auch Englisch][Sprachunterstützung]
+    Die \texttt{exercise}-Klasse hat eine eingebaute Sprachunterstützung, die es bisher erlaubt, die Klasse auf englisch umzuschalten. Die Sprachoption wird an das \texttt{babel}-Paket \cite{babel} weitergereicht, was viele \LaTeX{}-Standard-Texte übersetzt und die typografischen Konventionen auf Englisch umschaltet. Weiterhin werden die Texte der \texttt{exercise}-Klasse (Aufgabe, Übungszettel, Beweis, Behauptung) auf Englisch gesetzt. Um die Sprache auf Englisch umzuschalten muss die Klasse mit der Option \lstinline{language} geladen werden.
     \begin{lstlisting}[gobble=6]
       \documentclass[language=en]{exercise}
     \end{lstlisting}
@@ -424,9 +422,9 @@
     \end{lstlisting}
     Die Anweisungen sind natürlich sinnlos, da die Texte bereits deutsch sind. Sie dienen hier nur der Veranschaulichung des Prinzips und der allgemeinen Orientierung.
 
-  \task[des echten Informatikers liebste Aufgabe][Quellcode]
+  \task[des Informatikers liebste Aufgabe][Quellcode]
 
-    Zum Formschönen setzen von Quellcode ist das \texttt{listings} Paket
+    Zum formschönen Setzen von Quellcode ist das \texttt{listings} Paket
     \cite{listings} ideal. Da es automatisch eingebunden wird, stehen die
     folgenden Befehle zur Verfügung:
 
