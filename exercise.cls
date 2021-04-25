@@ -11,6 +11,100 @@
 % KOMA-Script class for article
 \LoadClass{scrartcl}
 
+% set basic KOMA-Script options
+\KOMAoption{fontsize}{10pt}
+\KOMAoption{parskip}{half}
+
+% declare counters
+\newcounter{task}
+\setcounter{task}{0}
+\newcounter{sheet}
+\setcounter{sheet}{0}
+
+% declare variables
+\newcommand{\@sheettext}{}
+
+% enable colors
+\RequirePackage[table]{xcolor}
+% define color of university of luebeck
+\xdefinecolor{uni-luebeck}{RGB}{0, 120, 140}
+\colorlet{maincolor}{orange}
+
+% declare names
+\providecommand{\taskname}{Aufgabe}
+\providecommand{\sheetname}{Übungszettel}
+\providecommand{\proofname}{Beweis}
+\providecommand{\claimname}{Behauptung}
+
+% already load math packages to redefine \vec in the options
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+
+% key=value management
+\newcommand{\@familyname}{Uni}
+\DefineFamily{\@familyname} % define new family
+\DefineFamilyMember{\@familyname} % register this class as a family member
+
+\FamilyBoolKey{\@familyname}{biglinespread}{@biglinespread}
+
+\DefineFamilyKey{\@familyname}{sheet}{%
+  \setcounter{sheet}{#1}%
+  \renewcommand{\@sheettext}{\sheetname{} \thesheet}}
+
+\DefineFamilyKey{\@familyname}{task}{%
+  \setcounter{task}{#1}%
+  \addtocounter{task}{-1}}
+
+\FamilyBoolKey{\@familyname}{prefix}{@prefix}
+
+\DefineFamilyKey{\@familyname}{maincolor}{%
+  \colorlet{maincolor}{#1}
+}
+
+% place vectors in bold
+\let\oldvec\vec
+\let\vec\boldsymbol
+\define@choicekey*{\@familyname.\@currname.\@currext}{vec}[\val\nr]{arrow,bold,underline}{%
+  \ifcase\nr\relax
+    % arrow
+    \let\vec\oldvec
+  \or
+    % bold
+    \let\vec\boldsymbol
+  \or
+    % underline
+    \let\vec\underline
+  \fi
+}
+
+% add support for English
+% The order of the options doesn't matter because macro arguments are
+% not expanded before their actual use.
+\define@choicekey*{\@familyname.\@currname.\@currext}{language}[\val\nr]{de,en}{%
+  \ifcase\nr\relax
+    % de = deutsch
+    \AtBeginDocument{\selectlanguage{ngerman}} % babel
+    \renewcommand{\taskname}{Aufgabe}
+    \renewcommand{\sheetname}{Übungszettel}
+    \renewcommand{\proofname}{Beweis}
+    \renewcommand{\claimname}{Behauptung}
+  \or
+    % en = english
+    \AtBeginDocument{\selectlanguage{english}} % babel
+    \renewcommand{\taskname}{Task}
+    \renewcommand{\sheetname}{Exercise Sheet}
+    \renewcommand{\proofname}{Proof}
+    \renewcommand{\claimname}{Claim}
+  \fi
+}
+
+\FamilyProcessOptions{\@familyname}
+
+% Make sure to load babel after executing \FamilyProcessOptions for
+% it to work properly. Otherwise \FamilyBoolKey does not work.
+% enable new german spelling by default
+\RequirePackage[english,ngerman]{babel}
+
 % input encoding
 \RequirePackage[utf8]{inputenc}
 
@@ -19,15 +113,6 @@
 \RequirePackage{lmodern}
 \RequirePackage{textcomp}
 \RequirePackage{courier}
-
-% Make sure to load babel after xkeyval for
-% FamilyProcessOptions to work properly.
-% enable new german spelling by default
-\RequirePackage[english,ngerman]{babel}
-
-% set basic KOMA-Script options
-\KOMAoption{fontsize}{10pt}
-\KOMAoption{parskip}{half}
 
 % set type area
 \RequirePackage[paper=a4paper,
@@ -50,13 +135,8 @@
 % special task header
 \RequirePackage{ifthen}
 \RequirePackage{twoopt}
-\newcounter{task}
-\setcounter{task}{0}
 \renewcommand{\thetask}{\arabic{task}}
-\newcounter{sheet}
-\setcounter{sheet}{0}
 \renewcommand{\thesheet}{\arabic{sheet}}
-\providecommand{\taskname}{Aufgabe}
 \providecommand{\taskcommand}{section}
 \newcommand{\invoketaskcommand}{\csname\taskcommand\endcsname}
 \newcommandtwoopt{\task}[2][][]{%
@@ -77,12 +157,10 @@
 }
 
 % content of head and foot
-\providecommand{\sheetname}{Übungszettel}
-\newcommand{\@sheettext}{}
 \pagestyle{scrheadings}
 \clearscrheadfoot
 \automark{section}
-\newcommand{\setgroup}[1] {\ihead{#1}}
+\newcommand{\setgroup}[1]{\ihead{#1}}
 
 \newcommand{\addstudent}[2][]{%
   \scr@ifundefinedorrelax{@students@value}{%
@@ -124,33 +202,17 @@
 % add maincolor to section layout
 \addtokomafont{section}{\color{maincolor}}
 
-% enable colors
-\RequirePackage[table]{xcolor}
-% define color of university of luebeck
-\xdefinecolor{uni-luebeck}{RGB}{0, 120, 140}
-\colorlet{maincolor}{orange}
-
 % zebra tables
 \newcommand{\mainrowcolors}{\rowcolors{1}{maincolor!25}{maincolor!5}}
 \newenvironment{zebratabular}{\mainrowcolors\begin{tabular}}{\end{tabular}}
 \newcommand{\setrownumber}[1]{\global\rownum#1\relax}
 \newcommand{\headerrow}{\rowcolor{maincolor!50}\setrownumber1}
 
-% set special behaviour for hyperlinks in pdfs
-\RequirePackage{hyperref}
-\hypersetup{breaklinks=true,
-            pdfborder={0 0 0},
-            ngerman,
-            pdfhighlight={/N}}
-\RequirePackage[all]{hypcap}
-
 % german quotes
 \RequirePackage[babel,german=guillemets]{csquotes}
 % for normal german quotes use german=quotes
 
-% math
-\RequirePackage{amsmath}
-\RequirePackage{amssymb}
+% math options
 \RequirePackage{mathtools}
 \mathtoolsset{showonlyrefs} % only show number on referenced formula
 % float left of formulas
@@ -178,34 +240,6 @@
            {ü}{{\"u}}1
            {ß}{{\ss}}1
 }
-
-% nice tick
-\newcommand{\tick}{\checkmark}
-
-% often used sets
-\newcommand{\set}[1]{\mathbb{#1}}
-\newcommand{\R}{\set{R}}
-\newcommand{\N}{\set{N}}
-\newcommand{\Z}{\set{Z}}
-\newcommand{\Q}{\set{Q}}
-
-% custom operators
-\newcommand{\op}[1]{\operatorname{#1}}
-
-% nice blitz symbol
-\RequirePackage{stmaryrd}
-\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
-\newcommand{\blitz}{\quad\ensuremath{\lightning}}
-
-% nice dx symbol
-\newcommand{\dx}[1][x]{\,\mathrm{d}#1}
-\newcommand{\dt}{\dx[t]}
-
-% nice transposed symbol
-\newcommand{\trans}[1]{{#1}^\text{T}}
-
-% nice z.z. symbol
-\newcommand{\zz}{\mathrm{Z\kern-.3em\raise-0.5ex\hbox{Z}}}
 
 % better list envorinment
 \RequirePackage{paralist}
@@ -253,11 +287,46 @@
 \newcommand{\@compactdingenumitem}[1]{\stepcounter{@compactdingenumindex}\color{maincolor}\Pisymbol{#1}{\value{@compactdingenumindex}}}
 \newenvironment{compactdingenum}[2][pzd]{\setcounter{@compactdingenumindex}{#2}\addtocounter{@compactdingenumindex}{-2}\@oldcompactitem[\@compactdingenumitem{#1}]}{\endcompactitem}
 
+% set special behaviour for hyperlinks in pdfs
+\RequirePackage{hyperref}
+\hypersetup{breaklinks=true,
+            pdfborder={0 0 0},
+            ngerman,
+            pdfhighlight={/N}}
+\RequirePackage[all]{hypcap}
+
+% nice tick
+\newcommand{\tick}{\checkmark}
+
+% often used sets
+\newcommand{\set}[1]{\mathbb{#1}}
+\newcommand{\R}{\set{R}}
+\newcommand{\N}{\set{N}}
+\newcommand{\Z}{\set{Z}}
+\newcommand{\Q}{\set{Q}}
+
+% custom operators
+\newcommand{\op}[1]{\operatorname{#1}}
+
+% nice blitz symbol
+\RequirePackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+\newcommand{\blitz}{\quad\ensuremath{\lightning}}
+
+% nice dx symbol
+\newcommand{\dx}[1][x]{\,\mathrm{d}#1}
+\newcommand{\dt}{\dx[t]}
+
+% nice transposed symbol
+\newcommand{\trans}[1]{{#1}^\text{T}}
+
+% nice z.z. symbol
+\newcommand{\zz}{\mathrm{Z\kern-.3em\raise-0.5ex\hbox{Z}}}
+
 % paragraph without latex magic
 \newcommand{\inhead}[1]{\begin{sffamily}\bfseries #1 \end{sffamily}}
 
 % special proof environment
-\providecommand{\proofname}{Beweis}
 \providecommand{\qedsymbol}{\textcolor{maincolor}{$\square$}}
 \newcommand{\qed}{\hfill\text{\qedsymbol}}
 \newenvironment{proof}{%
@@ -270,63 +339,12 @@
 }{\qed\endtrivlist}
 
 % special claim environment
-\providecommand{\claimname}{Behauptung}
 \newenvironment{claim}{%
   \trivlist
   \item[\hskip\labelsep
         \itshape
     \claimname\quad]\ignorespaces
 }{\endtrivlist}
-
-% key=value management
-% must be at the end, because macros and counters are redefined
-\newcommand{\@familyname}{Uni}
-\DefineFamily{\@familyname} % define new family
-\DefineFamilyMember{\@familyname} % register this class as a family member
-\FamilyBoolKey{\@familyname}{biglinespread}{@biglinespread}
-\DefineFamilyKey{\@familyname}{sheet}{%
-  \setcounter{sheet}{#1}%
-  \renewcommand{\@sheettext}{\sheetname{} \thesheet}}
-\DefineFamilyKey{\@familyname}{task}{%
-  \setcounter{task}{#1}%
-  \addtocounter{task}{-1}}
-\FamilyBoolKey{\@familyname}{prefix}{@prefix}
-\DefineFamilyKey{\@familyname}{maincolor}{%
-  \colorlet{maincolor}{#1}
-}
-\define@choicekey*{\@familyname.\@currname.\@currext}{language}[\val\nr]{de,en}{%
-  \ifcase\nr\relax
-    % de = deutsch
-    \AtBeginDocument{\selectlanguage{ngerman}} % babel
-    \renewcommand{\taskname}{Aufgabe}
-    \renewcommand{\sheetname}{Übungszettel}
-    \renewcommand{\proofname}{Beweis}
-    \renewcommand{\claimname}{Behauptung}
-  \or
-    % en = english
-    \AtBeginDocument{\selectlanguage{english}} % babel
-    \renewcommand{\taskname}{Task}
-    \renewcommand{\sheetname}{Exercise Sheet}
-    \renewcommand{\proofname}{Proof}
-    \renewcommand{\claimname}{Claim}
-  \fi
-}
-% place vectors in bold
-\let\oldvec\vec
-\let\vec\boldsymbol
-\define@choicekey*{\@familyname.\@currname.\@currext}{vec}[\val\nr]{arrow,bold,underline}{%
-  \ifcase\nr\relax
-    % arrow
-    \let\vec\oldvec
-  \or
-    % bold
-    \let\vec\boldsymbol
-  \or
-    % underline
-    \let\vec\underline
-  \fi
-}
-\FamilyProcessOptions{\@familyname}
 
 % 1.5 times line spreading?
 \if@biglinespread
