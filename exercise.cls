@@ -197,7 +197,7 @@
 
 % content of head and foot
 \pagestyle{scrheadings}
-\clearscrheadfoot
+\clearpairofpagestyles
 \automark{section}
 \newcommand{\setgroup}[1]{\ihead{#1}}
 
