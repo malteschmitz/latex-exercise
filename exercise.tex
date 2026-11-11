@@ -91,7 +91,7 @@
     zeigen die Links immer auf das Ende der Float-Umgebung. Um diesen Umstand
     zu optimieren wird autotisch das Paket \texttt{hypcap} \cite{hypcap} mit der
     Option \texttt{all} geladen. Hier werden die Float-Umgebungen \lstinline{table},
-    \lstinline{table*}, \lstinline{figure} und \lstinline{figure*} so umdefniert, dass
+    \lstinline{table*}, \lstinline{figure} und \lstinline{figure*} so umdefiniert, dass
     der Anker am Anfang der Umgebung gesetzt wird. Dies verlangt aber, dass jede
     der genannten Umgebungen genau einen \lstinline{\caption}-Befehl enthält.
 
@@ -110,14 +110,14 @@
     alte Schreibmaschine, neigen noch heute viele Menschen dazu, den 1.5-fachen
     für den einzig waren Zeilenabstand zu halten. Um diesem Umstand gerecht zu
     werden -- oder einfach um möglichst viele Seiten zu füllen -- kann die
-    Klasse angeweisen werden, 1.5-fachen Zeilenabstand zu setzen, indem bei
+    Klasse angewiesen werden, 1.5-fachen Zeilenabstand zu setzen, indem bei
     der Einbindung die Option \lstinline{biglinespread} ergänzt wird.
     \begin{lstlisting}[gobble=6]
       \documentclass[biglinespread]{exercise}
     \end{lstlisting}
 
     Die Option \lstinline{biglinespread} ist eine boolesche Option. Die Variante
-    ohne Wert steht für \lstinline{biglinespread=true}. Alternatativ können auch die
+    ohne Wert steht für \lstinline{biglinespread=true}. Alternativ können auch die
     Werte \lstinline{true} oder \lstinline{on} zum Einschalten der Option oder
     \lstinline{false}, sowie \lstinline{off} zum Abschalten der Option (was aber der
     Standard ist) verwendet werden.
@@ -127,14 +127,14 @@
     \emph{\hyperref[section-aufgaben]{Aufgaben}} und
     \emph{\hyperref[section-farbe]{Farbe}} erläutert.
 
-  \task[Was der Übungsleiter alles auf dem Zettet haben will][Kopfzeile]\label{section-kopfzeile}
+  \task[Was der Übungsleiter alles auf dem Zettel haben will][Kopfzeile]\label{section-kopfzeile}
     Die Informationen in der Kopfzeile können mit drei Befehlen an die
     jeweilige Übung angepasst werden.
     \begin{itemize}
       \item In der Mitte der Kopfzeile befindet sich der Name der Übung oder
       ein anderer Dokumententitel (auf dieser Seite
       \enquote{\texttt{exercise}-Klasse}) und darunter die aktuelle Übung
-      (z.\,B. \enquote{Übungszettel 42}) oder ein aderer Untertitel (auf dieser
+      (z.\,B. \enquote{Übungszettel 42}) oder ein anderer Untertitel (auf dieser
       Seite \enquote{Anleitung}). Diese Informationen müssen der Klasse im Kopf
       deines Quellcodes (also noch vor dem Code \lstinline-\begin{document}-) mitgeteilt
       werden durch den Befehl
@@ -168,7 +168,7 @@
   \task[Überschriften vollautomatisch -- naja fast][Aufgaben]\label{section-aufgaben}
     Überschriften können in dieser Klasse ganz normal durch \lstinline{\section}, \lstinline{\subsection}, \ldots{} gesetzt werden. Allerdings ist die Nummerierung ausgeschaltet, da die Überschrift normalerweise die Nummer der Aufgabe enthalten soll und eine doppelte Nummerierung der Form \enquote{1. Aufgabe 1} ist nicht sonderlich elegant. Da die meisten Übungszettel mit Aufgabe 1 beginnen und anschließend fortlaufend durchnummeriert sind, wurde wieder eine automatische Nummerierung eingeführt. Durch den Befehl \lstinline-\task- wird eine Überschrift \enquote{Aufgabe} inklusive Nummer automatisch gesetzt.
 
-    Allerdings ist die eigentliche Funktion einer Überschrift, dass man sich in einem Dokuemnt zurechtfindet. Durch eine reine Nummerierung der Form \enquote{Aufgabe 1} bis \enquote{Aufgabe 42} ist das allerdings noch nicht direkt gewährleistet. Daher kann der Überschrift eine Ergänzung hinzugefügt werden, die weniger kräftig und mit einem leichten Abstand neben die eigentliche Überschrift gesetzt wird.
+    Allerdings ist die eigentliche Funktion einer Überschrift, dass man sich in einem Dokument zurechtfindet. Durch eine reine Nummerierung der Form \enquote{Aufgabe 1} bis \enquote{Aufgabe 42} ist das allerdings noch nicht direkt gewährleistet. Daher kann der Überschrift eine Ergänzung hinzugefügt werden, die weniger kräftig und mit einem leichten Abstand neben die eigentliche Überschrift gesetzt wird.
     \begin{lstlisting}[gobble=6]
       \task[<Untertitel>]
     \end{lstlisting}
@@ -254,7 +254,7 @@
         \end{compactitem}
     \end{varcompactitem}
 
-    Soll die Nummerierung noch weiter den eigenen Ansprüchen oder dem Aufgabenzettel angepasst werden stehen zwei Möglichkeiten zur Auwahl bereit: Die Nummerierung kann entweder als Option für genau eine Liste geändert werden oder durch die Befehle \lstinline-\setdefaultitem- und \lstinline-\setdefaultenum-. Beiden Befehlen werden jeweils die Werte für Listen erster bis vierter Ordnung übergeben. Wird ein Parameter leer gelassen, bleibt der Standard erhalten. Für ungeordnete Listen kann eine beliebige Zeichenfolge übergeben werden, die exakt in der Form als Listenpunkt verwendet wird. Für Aufzählungen werden die Buchstaben \texttt{i}, \texttt{I}, \texttt{a}, \texttt{A} und \texttt{1} durch die Nummer im entsprechenden Format ersetzt. Soll ein solches Zeichen nicht ersetzt werden, muss es in geschweifte Klammern eingeschlossen werden. Soll die farbliche Hervorhebung der Nummerierungen erhalten bleiben, so muss diese expliziet angegeben werden. So kann zum Beispiel die Art der Nummerierung für Listen erster Ordnung geäbdert werden durch
+    Soll die Nummerierung noch weiter den eigenen Ansprüchen oder dem Aufgabenzettel angepasst werden stehen zwei Möglichkeiten zur Auswahl bereit: Die Nummerierung kann entweder als Option für genau eine Liste geändert werden oder durch die Befehle \lstinline-\setdefaultitem- und \lstinline-\setdefaultenum-. Beiden Befehlen werden jeweils die Werte für Listen erster bis vierter Ordnung übergeben. Wird ein Parameter leer gelassen, bleibt der Standard erhalten. Für ungeordnete Listen kann eine beliebige Zeichenfolge übergeben werden, die exakt in der Form als Listenpunkt verwendet wird. Für Aufzählungen werden die Buchstaben \texttt{i}, \texttt{I}, \texttt{a}, \texttt{A} und \texttt{1} durch die Nummer im entsprechenden Format ersetzt. Soll ein solches Zeichen nicht ersetzt werden, muss es in geschweifte Klammern eingeschlossen werden. Soll die farbliche Hervorhebung der Nummerierungen erhalten bleiben, so muss diese explizit angegeben werden. So kann zum Beispiel die Art der Nummerierung für Listen erster Ordnung geändert werden durch
     \begin{lstlisting}[gobble=6]
       \setdefaultenum{\color{maincolor}{Teil} I}{}{}{}
     \end{lstlisting}
@@ -278,7 +278,7 @@
       \item kurze
       \item Liste.
     \end{compactenum}
-    Der linke Abstand passt sich in diesem Fall automatisch an. Der Mechansimus
+    Der linke Abstand passt sich in diesem Fall automatisch an. Der Mechanismus
     versagt allerdings manchmal, sodass man zu obiger Methode greifen muss.
     Man beachte, dass trotz manuellen Setzens
     der Numerierung, die Zahlen trotzdem in Farbe gesetzt werden. Durch explizites
@@ -303,7 +303,7 @@
     aus dem \texttt{pifont} Paket können ebenfalls verwendet werden,
     wenn der Name des Fonts als optionaler Parameter angeben wird.
     Für Zapf Dingbats ist \texttt{pzb} voreingestellt.
-    Analog zur Umhgebung \lstinline-compactdingitem- existiert auch noch die
+    Analog zur Umgebung \lstinline-compactdingitem- existiert auch noch die
     Umgebungen \lstinline-dingitem-.
 
     Die Umgebungen \lstinline-dingenum- und \lstinline-compactdingenum-
@@ -399,7 +399,7 @@
     \end{lstlisting}
 
   \task[deutsche Gänsefüßchen haben es schwer][Anführungszeichen]
-    Da die Verwendung korrekter Anfürhungszeichen in \LaTeX{} immer etwas trickreich ist, wird das Paket \texttt{csquotes} \cite{csquotes} eingebunden und die Form der Anführungszeichen auf die deutschen Guillemets gesetzt. Auf diese Weise können Wörter oder ganze Sätze durch einen einfachen Befehl in Anführungszeichen gesetzt werden, ohne dass der Autor sich um die korrekte Verwendung kümmern muss.
+    Da die Verwendung korrekter Anführungszeichen in \LaTeX{} immer etwas trickreich ist, wird das Paket \texttt{csquotes} \cite{csquotes} eingebunden und die Form der Anführungszeichen auf die deutschen Guillemets gesetzt. Auf diese Weise können Wörter oder ganze Sätze durch einen einfachen Befehl in Anführungszeichen gesetzt werden, ohne dass der Autor sich um die korrekte Verwendung kümmern muss.
     \begin{lstlisting}[gobble=6]
       \enquote{<Text>}
     \end{lstlisting}
@@ -472,9 +472,9 @@
 
   \task[Striche sind ganz böse][Tabellen]
 
-    Auch wenn Tabellen gerne durch eine Vielzahl von (faszinierender Weise in \LaTeX{} auch gerne doppelt und dreifachen) Strichen dargstellt werden, so erhöht dies die Lesbarkeit selten. Hat man mit dem Bleistift oder der Schreibmaschine wenig andere Möglichkeiten, so bietet es sich im professionellen Textsatz doch an, Tabellen mit möglichst wenigen Strichen zu setzen. Vertikale Striche, die in den meisten Fällen einfach nur den horizontalen Lesefluss unterbrechen, sollten so wenig wie möglich eingesetzt werden. Horizontale Striche können zur Abtrennung von Kopfzeilen und Bereichen verwendet werden. Eleganter ist aber die dezente farbige Hinterlegung der Tabellenzellen.
+    Auch wenn Tabellen gerne durch eine Vielzahl von (faszinierender Weise in \LaTeX{} auch gerne doppelt und dreifachen) Strichen dargestellt werden, so erhöht dies die Lesbarkeit selten. Hat man mit dem Bleistift oder der Schreibmaschine wenig andere Möglichkeiten, so bietet es sich im professionellen Textsatz doch an, Tabellen mit möglichst wenigen Strichen zu setzen. Vertikale Striche, die in den meisten Fällen einfach nur den horizontalen Lesefluss unterbrechen, sollten so wenig wie möglich eingesetzt werden. Horizontale Striche können zur Abtrennung von Kopfzeilen und Bereichen verwendet werden. Eleganter ist aber die dezente farbige Hinterlegung der Tabellenzellen.
 
-    Wie das vorgangegenagen Plädoyer für farbige Tabellen schon vermuten lässt, sind diese in der \texttt{exercise}-Klasse leicht zu realisieren. Die Umgebung \lstinline-zebratabular- verhält sich genau wie \lstinline-tabular- mit dem einzigen Unterschied, dass die Tabelle automatisch abwechselnd gefärbte Zeilen hat. Um die automatisch Färbung innerhalb der Tabelle ab- und wieder einzuschalten können die Befehle \lstinline-\hiderowcolors- und \lstinline-\showrowcolors- aus dem \texttt{xcolor}-Paket \cite{xcolor} verwendet werden. Um die Kopfzeile etwas kräftiger einzufärben steht der Befehl \lstinline-\headerrow- zur Verfügung. Dieser muss zu Beginn der Kopfzeile eingefügt werden.
+    Wie das vorangegangene Plädoyer für farbige Tabellen schon vermuten lässt, sind diese in der \texttt{exercise}-Klasse leicht zu realisieren. Die Umgebung \lstinline-zebratabular- verhält sich genau wie \lstinline-tabular- mit dem einzigen Unterschied, dass die Tabelle automatisch abwechselnd gefärbte Zeilen hat. Um die automatisch Färbung innerhalb der Tabelle ab- und wieder einzuschalten können die Befehle \lstinline-\hiderowcolors- und \lstinline-\showrowcolors- aus dem \texttt{xcolor}-Paket \cite{xcolor} verwendet werden. Um die Kopfzeile etwas kräftiger einzufärben steht der Befehl \lstinline-\headerrow- zur Verfügung. Dieser muss zu Beginn der Kopfzeile eingefügt werden.
 
     Im Gegensatz zu früheren Versionen der \texttt{exercise}-Klasse werden mit
     der \lstinline-tabular--Umgebung gesetzte Tabellen nicht mehr automatisch eingefärbt, sodass auch mit der \lstinline-array--Umgebung und verwandten Matrix- und Vektor-Umgebungen gesetzte Formeln nicht mehr farbig hinterlegt werden.
